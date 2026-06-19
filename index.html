@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Family Trip to Italy · September 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;0,900;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  :root{
+    --terracotta:#bf5333;
+    --terracotta-dark:#9c4126;
+    --cream:#fbf6ec;
+    --paper:#fffdf8;
+    --olive:#5f6b43;
+    --wine:#6b2737;
+    --gold:#c79a3e;
+    --ink:#2c2620;
+    --muted:#6f655a;
+    --line:#e7ddcb;
+    --sky:#3f6d78;
+    --shadow:0 18px 40px -22px rgba(60,40,20,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:74px}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:clip;
+  }
+  h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;font-weight:700}
+  a{color:var(--terracotta-dark)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(251,246,236,.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;gap:18px;max-width:1080px;margin:0 auto;padding:12px 22px;flex-wrap:wrap}
+  .brand{font-family:'Playfair Display',serif;font-weight:900;font-size:1.15rem;color:var(--terracotta-dark);white-space:nowrap}
+  .brand span{color:var(--olive)}
+  .nav-links{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto}
+  .nav-links a{
+    text-decoration:none;color:var(--muted);font-weight:600;font-size:.82rem;
+    padding:6px 11px;border-radius:999px;transition:.18s;letter-spacing:.01em;
+  }
+  .nav-links a:hover{background:var(--terracotta);color:#fff}
+
+  /* HERO */
+  header.hero{
+    position:relative;color:#fff;text-align:center;
+    padding:88px 22px 76px;
+    background:
+      linear-gradient(180deg,rgba(60,30,15,.32),rgba(70,35,18,.62)),
+      linear-gradient(135deg,#c96a3f 0%,#a8432a 45%,#6b2737 100%);
+    overflow:hidden;
+  }
+  header.hero::after{
+    content:"";position:absolute;inset:0;opacity:.10;
+    background-image:radial-gradient(circle at 18% 22%,#fff 0 2px,transparent 2px),radial-gradient(circle at 78% 64%,#fff 0 2px,transparent 2px);
+    background-size:46px 46px;
+  }
+  .hero-flag{font-size:2.4rem;margin-bottom:6px;position:relative}
+  .hero-kicker{position:relative;font-weight:600;letter-spacing:.34em;text-transform:uppercase;font-size:.78rem;opacity:.92}
+  header.hero h1{position:relative;font-size:clamp(3rem,9vw,6rem);font-weight:900;margin:.1em 0 .15em;text-shadow:0 4px 24px rgba(0,0,0,.25)}
+  .hero-sub{position:relative;font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.1rem,2.6vw,1.5rem);opacity:.96}
+  .hero-stats{position:relative;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:30px}
+  .stat{background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.28);border-radius:14px;padding:12px 18px;min-width:96px;backdrop-filter:blur(4px)}
+  .stat b{display:block;font-family:'Playfair Display',serif;font-size:1.7rem;line-height:1}
+  .stat small{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.86}
+
+  /* SECTIONS */
+  section{padding:66px 0 10px}
+  .sec-head{text-align:center;margin-bottom:34px}
+  .sec-head .eyebrow{color:var(--terracotta);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:.76rem}
+  .sec-head h2{font-size:clamp(1.9rem,4.4vw,2.8rem);margin-top:6px;color:var(--wine)}
+  .sec-head p{color:var(--muted);max-width:640px;margin:12px auto 0}
+
+  /* OVERVIEW */
+  .ov-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+  .ov-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+  .ov-card .ic{font-size:1.6rem}
+  .ov-card h3{font-size:1.15rem;margin:8px 0 4px;color:var(--terracotta-dark)}
+  .ov-card p{color:var(--muted);font-size:.92rem}
+
+  /* ITINERARY */
+  .city-band{display:flex;align-items:center;gap:16px;margin:40px 0 22px}
+  .city-band:first-child{margin-top:0}
+  .city-band h3{font-size:1.7rem;color:var(--olive);white-space:nowrap}
+  .city-band .meta{color:var(--muted);font-size:.88rem;font-weight:600}
+  .city-band hr{flex:1;border:none;border-top:2px dotted var(--line)}
+
+  .filters{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+  .filters button{
+    font-family:inherit;font-weight:600;font-size:.85rem;cursor:pointer;
+    border:1px solid var(--line);background:var(--paper);color:var(--muted);
+    padding:8px 16px;border-radius:999px;transition:.18s;
+  }
+  .filters button:hover{border-color:var(--terracotta)}
+  .filters button.active{background:var(--terracotta);color:#fff;border-color:var(--terracotta)}
+
+  .day{background:var(--paper);border:1px solid var(--line);border-radius:18px;margin-bottom:18px;overflow:hidden;box-shadow:var(--shadow)}
+  .day-head{display:flex;align-items:center;gap:16px;padding:18px 22px;cursor:pointer;user-select:none;background:linear-gradient(90deg,rgba(191,83,51,.06),transparent)}
+  .day-num{flex:none;width:54px;height:54px;border-radius:12px;background:var(--terracotta);color:#fff;display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;line-height:1;text-align:center}
+  .day-num small{display:block;font-size:.55rem;letter-spacing:.14em;opacity:.85;font-family:'Inter'}
+  .day-num b{font-size:1.5rem}
+  .day-title{flex:1}
+  .day-title h4{font-size:1.2rem;color:var(--wine)}
+  .day-title .date{color:var(--muted);font-size:.82rem;font-weight:600;letter-spacing:.04em}
+  .chev{flex:none;color:var(--terracotta);font-size:1.1rem;transition:transform .25s}
+  .day.open .chev{transform:rotate(180deg)}
+  .day-body{display:none;padding:4px 22px 22px}
+  .day.open .day-body{display:block}
+
+  .block{padding:16px 0;border-top:1px solid var(--line)}
+  .block:first-child{border-top:none}
+  .block-label{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;padding:4px 11px;border-radius:999px;margin-bottom:9px}
+  .cat-all .block-label{background:#efe7d4;color:#8a6d2f}
+  .cat-culture .block-label{background:#e2ecee;color:var(--sky)}
+  .cat-kids .block-label{background:#e7eddd;color:var(--olive)}
+  .cat-food .block-label{background:#f6e2da;color:var(--terracotta-dark)}
+  .block p{color:#43392f;font-size:.95rem}
+  .food-item{padding:9px 0;border-bottom:1px dashed var(--line)}
+  .food-item:last-child{border-bottom:none}
+  .food-item .fn{font-weight:700;color:var(--ink)}
+  .food-item .fd{color:var(--muted);font-size:.9rem}
+  .food-item .fp{display:inline-block;margin-top:3px;font-size:.82rem;font-weight:600;color:var(--olive);background:#eef1e6;padding:2px 9px;border-radius:6px}
+
+  .feature-exp{background:linear-gradient(135deg,#fffdf8,#fbeede);border:1px solid var(--gold);border-radius:18px;padding:26px;margin:0 0 22px;box-shadow:var(--shadow)}
+  .fe-head{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .fe-icon{font-size:2.1rem;flex:none}
+  .fe-photo{width:62px;height:62px;border-radius:50%;object-fit:cover;object-position:50% 16%;flex:none;border:2px solid var(--wine);box-shadow:0 5px 14px -5px rgba(0,0,0,.45)}
+  .fe-head .eyebrow{color:var(--gold);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:.72rem}
+  .fe-head h3{color:var(--wine);font-size:1.5rem;line-height:1.1}
+  .feature-exp>p{color:#43392f;font-size:.95rem;margin-bottom:16px}
+  .fe-options{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fe-opt{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:16px;text-decoration:none;display:block;transition:.18s}
+  .fe-opt:hover{border-color:var(--terracotta);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .fe-opt .nm{font-weight:700;color:var(--terracotta-dark);font-size:1.05rem}
+  .fe-opt .url{font-size:.78rem;color:var(--olive);word-break:break-all}
+  .fe-opt p{font-size:.86rem;color:var(--muted);margin:7px 0}
+  .fe-opt .fp{display:inline-block;font-size:.8rem;font-weight:600;color:var(--olive);background:#eef1e6;padding:2px 9px;border-radius:6px}
+  .fe-tip{margin-top:14px;font-size:.86rem;color:#5a4f43;background:rgba(199,154,62,.12);border-radius:10px;padding:11px 14px}
+  .feature-exp.tucci{background:linear-gradient(135deg,#fbf6f7,#f1e6ea);border-color:var(--wine)}
+  .feature-exp.tucci .fe-head .eyebrow{color:var(--wine)}
+  .feature-exp.tucci .fe-opt .nm{color:var(--wine)}
+  .feature-exp.tucci .fe-tip{background:rgba(107,39,55,.09);color:#54323c}
+  div.fe-opt{cursor:default}
+  @media(max-width:680px){.fe-options{grid-template-columns:1fr}}
+
+  body[data-filter="culture"] .day:not(.has-culture),
+  body[data-filter="kids"] .day:not(.has-kids),
+  body[data-filter="food"] .day:not(.has-food){opacity:.4}
+  body[data-filter="culture"] .block:not(.cat-culture):not(.cat-all),
+  body[data-filter="kids"] .block:not(.cat-kids):not(.cat-all),
+  body[data-filter="food"] .block:not(.cat-food):not(.cat-all){display:none}
+
+  /* BUDGET */
+  .budget-total{background:linear-gradient(135deg,var(--wine),var(--terracotta-dark));color:#fff;border-radius:20px;padding:30px;text-align:center;margin-bottom:30px;box-shadow:var(--shadow)}
+  .budget-total .big{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,7vw,3.6rem);font-weight:900;line-height:1}
+  .budget-total .pp{font-size:1.05rem;opacity:.92;margin-top:6px}
+  .budget-total small{display:block;margin-top:12px;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+  .budget-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .b-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+  .b-card h3{background:var(--olive);color:#fff;font-size:1.05rem;padding:13px 18px;display:flex;justify-content:space-between;align-items:center}
+  .b-card h3 .sub{font-family:'Inter';font-size:.82rem;font-weight:700;background:rgba(255,255,255,.18);padding:3px 9px;border-radius:7px}
+  .b-row{display:flex;justify-content:space-between;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line);font-size:.9rem}
+  .b-row:last-child{border-bottom:none}
+  .b-row .lbl{color:var(--ink)}
+  .b-row .lbl small{display:block;color:var(--muted);font-size:.78rem;font-weight:400}
+  .b-row .amt{font-weight:700;color:var(--terracotta-dark);white-space:nowrap;text-align:right}
+
+  /* CHECKLIST + generic cards */
+  .panel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:18px}
+  .panel{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:var(--shadow)}
+  .panel h3{color:var(--wine);font-size:1.25rem;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .check{display:flex;gap:11px;padding:9px 0;border-top:1px solid var(--line);align-items:flex-start}
+  .check:first-of-type{border-top:none}
+  .check .box{flex:none;width:18px;height:18px;border:2px solid var(--terracotta);border-radius:5px;margin-top:3px;position:relative;transition:.15s}
+  .check .txt{flex:1;font-size:.91rem;color:#43392f}
+  .check.checkable{cursor:pointer;border-radius:9px;transition:background .15s}
+  .check.checkable:hover{background:rgba(191,83,51,.06)}
+  .check.checkable:hover .box{border-color:var(--terracotta-dark)}
+  .check.done .box{background:var(--terracotta)}
+  .check.done .box::after{content:"✓";position:absolute;inset:-1px;color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .check.done .txt{text-decoration:line-through;color:var(--muted)}
+  .check.done .txt b{color:var(--muted)}
+  .tag{flex:none;font-size:.62rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 8px;border-radius:6px;white-space:nowrap;margin-top:2px}
+  .t-now{background:#f6dcd4;color:#a8341b}
+  .t-before{background:#fbeccb;color:#9a6c12}
+  .t-early{background:#e2d6ef;color:#6a3d9c}
+  .t-soon{background:#d6e6ea;color:#2f6776}
+  .t-tip{background:#e2ecdd;color:#4d6336}
+  .t-none{background:#e8e3d8;color:#7a6f5e}
+  .t-when{background:#f0e1d2;color:#9c6233}
+
+  /* TWO COLUMN do/avoid */
+  .doavoid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .doavoid .col{border-radius:16px;padding:20px;border:1px solid var(--line)}
+  .col.do{background:#eef2e7}
+  .col.avoid{background:#f7e7e1}
+  .col h3{font-size:1.2rem;margin-bottom:12px}
+  .col.do h3{color:var(--olive)}
+  .col.avoid h3{color:var(--terracotta-dark)}
+  .col li{list-style:none;padding:8px 0;border-top:1px solid rgba(0,0,0,.06);font-size:.9rem}
+  .col li:first-child{border-top:none}
+  .col li b{display:block}
+  .col li span{color:var(--muted);font-size:.84rem}
+
+  .callout{background:linear-gradient(135deg,#fff,#f7efe0);border:1px solid var(--gold);border-left:5px solid var(--gold);border-radius:14px;padding:20px 22px;margin-top:20px}
+  .callout h4{color:var(--wine);font-size:1.1rem;margin-bottom:6px}
+  .callout p{font-size:.92rem;color:#43392f}
+
+  /* WEATHER */
+  .weather{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:8px}
+  .w-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center;box-shadow:var(--shadow)}
+  .w-card h4{color:var(--sky);font-size:1.1rem}
+  .w-card .temp{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--terracotta-dark);margin:4px 0}
+  .w-card p{font-size:.84rem;color:var(--muted)}
+
+  /* PHRASES */
+  .phrase-table{width:100%;border-collapse:collapse;background:var(--paper);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .phrase-table caption{font-family:'Playfair Display',serif;font-weight:700;font-size:1.15rem;color:var(--wine);text-align:left;padding:14px 16px 4px}
+  .phrase-table th{background:var(--olive);color:#fff;text-align:left;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:9px 16px}
+  .phrase-table td{padding:9px 16px;border-top:1px solid var(--line);font-size:.9rem;vertical-align:top}
+  .phrase-table td.it{font-weight:700;color:var(--terracotta-dark);font-family:'Playfair Display',serif}
+  .say-btn{font-size:.78rem;line-height:1;cursor:pointer;border:none;background:var(--terracotta);color:#fff;width:24px;height:24px;border-radius:50%;margin-right:8px;vertical-align:middle;padding:0;transition:.15s;box-shadow:0 2px 5px -1px rgba(0,0,0,.25)}
+  .say-btn:hover{background:var(--terracotta-dark);transform:scale(1.1)}
+  .say-btn.speaking{background:var(--olive);animation:saypulse .8s ease-in-out infinite}
+  @keyframes saypulse{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
+  .phrase-table td.say{font-style:italic;color:var(--muted)}
+  .phrase-wrap{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+
+  /* LINKS */
+  .link-cat{margin-bottom:24px}
+  .link-cat h3{color:var(--olive);font-size:1.25rem;margin-bottom:12px;padding-bottom:6px;border-bottom:2px dotted var(--line)}
+  .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  .link-item{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:12px 14px;text-decoration:none;transition:.18s}
+  .link-item:hover{border-color:var(--terracotta);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .link-item .kind{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold)}
+  .link-item .nm{font-weight:600;color:var(--ink);font-size:.92rem;margin:2px 0}
+  .link-item .url{color:var(--terracotta-dark);font-size:.8rem;word-break:break-all}
+
+  footer{background:var(--wine);color:#f3e6d6;text-align:center;padding:46px 22px;margin-top:60px}
+  footer .flag{font-size:1.8rem}
+  footer h3{color:#fff;font-size:1.6rem;margin:6px 0}
+  footer p{opacity:.82;font-size:.88rem;max-width:560px;margin:6px auto 0}
+  footer .grazie{font-family:'Playfair Display',serif;font-style:italic;font-size:1.2rem;color:var(--gold);margin-top:18px}
+
+  @media(max-width:680px){
+    .doavoid,.phrase-wrap{grid-template-columns:1fr}
+    .nav-links{width:100%;overflow-x:auto;flex-wrap:nowrap;margin-left:0;-webkit-overflow-scrolling:touch}
+    .nav-links::-webkit-scrollbar{display:none}
+    section{padding:48px 0 8px}
+    .wrap{padding:0 16px}
+    .brand{font-size:1rem}
+    .phrase-table th,.phrase-table td{padding:8px 10px;font-size:.82rem}
+    .day-head{padding:15px 14px;gap:12px}
+    .day-body{padding:2px 16px 18px}
+    .feature-exp{padding:20px}
+    .print-fab{padding:11px 15px;font-size:.82rem}
+    .print-fab-wrap{right:12px;bottom:12px}
+  }
+
+  /* MAP */
+  .map-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+  .map-controls button{font-family:inherit;font-weight:600;font-size:.85rem;cursor:pointer;border:1px solid var(--line);background:var(--paper);color:var(--muted);padding:8px 16px;border-radius:999px;transition:.18s}
+  .map-controls button:hover{border-color:var(--terracotta)}
+  .map-controls button.active{background:var(--terracotta);color:#fff;border-color:var(--terracotta)}
+  #leafletmap{height:540px;border-radius:18px;border:1px solid var(--line);box-shadow:var(--shadow);background:#e8e3d8}
+  .leaflet-container{font-family:'Inter',sans-serif}
+  .map-legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:16px;font-size:.82rem;color:var(--muted)}
+  .map-legend span{display:inline-flex;align-items:center;gap:6px}
+  .map-legend i{width:13px;height:13px;border-radius:50%;display:inline-block;border:2px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.18)}
+  .map-popup b{font-family:'Playfair Display',serif;color:var(--wine);font-size:1.02rem}
+  .map-popup .mp-cat{display:block;font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:2px 0 8px}
+  .map-popup a{display:inline-block;font-weight:600;font-size:.85rem;color:#fff;background:var(--terracotta);padding:6px 12px;border-radius:8px;text-decoration:none}
+  .map-popup a:hover{background:var(--terracotta-dark)}
+  .map-dl{text-align:center;margin-top:18px;font-size:.9rem;color:var(--muted);max-width:680px;margin-left:auto;margin-right:auto;background:rgba(199,154,62,.1);border-radius:12px;padding:14px 18px}
+  @media(max-width:680px){#leafletmap{height:420px}}
+
+  /* PRINT / PDF EXPORT */
+  .print-fab-wrap{position:fixed;right:18px;bottom:18px;z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+  .print-fab{font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;border:none;background:var(--terracotta);color:#fff;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);display:flex;align-items:center;gap:7px}
+  .print-fab:hover{background:var(--terracotta-dark)}
+  .print-menu{display:none;flex-direction:column;background:var(--paper);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);min-width:230px}
+  .print-menu.open{display:flex}
+  .print-menu button{font-family:inherit;font-size:.88rem;font-weight:700;text-align:left;cursor:pointer;border:none;background:none;color:var(--ink);padding:12px 16px}
+  .print-menu button:hover{background:var(--cream);color:var(--terracotta-dark)}
+  .print-menu button+button{border-top:1px solid var(--line)}
+  .print-menu small{display:block;font-weight:400;color:var(--muted);font-size:.74rem;margin-top:2px}
+
+  @media print{
+    *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
+    html{scroll-padding-top:0}
+    body{background:#fff}
+    nav,.print-fab-wrap,.filters,.chev,.no-print,#map{display:none !important}
+    section{padding:16px 0 !important}
+    .day-body{display:block !important}
+    .day,.block{opacity:1 !important;display:block !important}
+    .day,.panel,.b-card,.ov-card,.fe-opt,.w-card,.budget-total,.callout,.phrase-table,.feature-exp{break-inside:avoid}
+    a{text-decoration:none}
+    /* checklist-only mode */
+    body.print-checklist-only>nav,
+    body.print-checklist-only>header,
+    body.print-checklist-only>footer,
+    body.print-checklist-only .callout,
+    body.print-checklist-only>section:not(#before):not(#packing){display:none !important}
+  }
+</style>
+</head>
+<body data-filter="all">
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">🇮🇹 Italia <span>2027</span></div>
+    <div class="nav-links">
+      <a href="#overview">Overview</a>
+      <a href="#itinerary">Itinerary</a>
+      <a href="#map">Map</a>
+      <a href="#budget">Budget</a>
+      <a href="#before">Before You Go</a>
+      <a href="#packing">Packing</a>
+      <a href="#style">What to Wear</a>
+      <a href="#phrases">Phrases</a>
+      <a href="#links">Sites &amp; Food</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-flag">🇮🇹</div>
+  <div class="hero-kicker">Our Family Trip to</div>
+  <h1>Italy</h1>
+  <div class="hero-sub">Florence &amp; Rome &middot; September 2027</div>
+  <div class="hero-stats">
+    <div class="stat"><b>11</b><small>Days</small></div>
+    <div class="stat"><b>7</b><small>Nights Florence</small></div>
+    <div class="stat"><b>4</b><small>Nights Rome</small></div>
+    <div class="stat"><b>Sept 1&ndash;12</b><small>2027</small></div>
+  </div>
+</header>
+
+<!-- OVERVIEW -->
+<section id="overview">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">The Plan</div>
+      <h2>Two Cities, One Family</h2>
+      <p>Seven nights in a downtown Florence apartment, then four nights at a Trastevere hotel in Rome. Built around culture, kid-friendly alternatives, and the best food both cities offer, with picks from Katie Parla and the NYT.</p>
+    </div>
+    <div class="ov-grid">
+      <div class="ov-card"><div class="ic">🏛️</div><h3>Florence &amp; Tuscany</h3><p>Days 1&ndash;7. Uffizi, the Accademia, Chianti wine country, plus day trips to Siena and San Gimignano.</p></div>
+      <div class="ov-card"><div class="ic">🚄</div><h3>High-Speed to Rome</h3><p>Day 8. A 1.5-hour Frecciarossa from Florence, then settling into Trastevere's cobblestone streets.</p></div>
+      <div class="ov-card"><div class="ic">🏟️</div><h3>Ancient Rome</h3><p>Days 8&ndash;11. The Vatican, Colosseum, Galleria Borghese, the Pantheon, and a Trevi Fountain finale.</p></div>
+      <div class="ov-card"><div class="ic">👶</div><h3>Family-First</h3><p>Every day has a relaxed track for the little ones, with parks, gelato, and museum-free alternatives.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section id="itinerary">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Day by Day</div>
+      <h2>The Itinerary</h2>
+      <p>Tap any day to open it. Filter by track to see just what matters to you. Tap a day's header to expand the full plan with culture, kid-friendly options, and where to eat.</p>
+    </div>
+
+    <div class="filters">
+      <button data-f="all" class="active">Everything</button>
+      <button data-f="culture">🏛️ Culture &amp; History</button>
+      <button data-f="kids">👶 Kids &amp; Relaxed</button>
+      <button data-f="food">🍝 Food &amp; Drink</button>
+    </div>
+
+    <div class="city-band"><h3>🌿 Florence</h3><span class="meta">Days 1&ndash;7 &middot; Downtown Apartment &middot; Sept 1&ndash;7</span><hr></div>
+
+    <div class="feature-exp">
+      <div class="fe-head">
+        <span class="fe-icon">🍳</span>
+        <div>
+          <span class="eyebrow">Optional Add-On</span>
+          <h3>Take a Cooking Class in Florence</h3>
+        </div>
+      </div>
+      <p>A hands-on Tuscan cooking class is a Florence highlight. Many start with a Mercato Centrale market tour, then you cook and sit down to eat fresh pasta, sauces, and seasonal dishes, often paired with Chianti. Both schools below book directly and can arrange a private class for your group. Best slotted into a free Florence afternoon or evening: <b>Day 2</b> or <b>Day 7</b> work well, and a market-tour version pairs naturally with your <b>Day 5</b> Mercato Centrale visit.</p>
+      <div class="fe-options">
+        <a class="fe-opt" href="https://www.mamaflorence.com/en" target="_blank" rel="noopener">
+          <div class="nm">Mama Florence</div>
+          <div class="url">mamaflorence.com</div>
+          <p>Professional chef and sommelier-led, hands-on classes near Porta Romana, in a kitchen with a wine cellar and outdoor patio. Pasta, gelato, wine-paired menus, and private group experiences with a market-tour option.</p>
+          <span class="fp">Group classes ~€89–139/pp &middot; private for the group</span>
+        </a>
+        <a class="fe-opt" href="https://www.intavola.org/" target="_blank" rel="noopener">
+          <div class="nm">In Tavola</div>
+          <div class="url">intavola.org</div>
+          <p>Long-running school in the Oltrarno (Via dei Velluti), a short walk across the river. Small, hands-on classes in pasta and Tuscan classics, with market-tour versions available.</p>
+          <span class="fp">Hands-on classes ~€75–120/pp</span>
+        </a>
+      </div>
+      <div class="fe-tip">💡 For all eight of you, ask each school about a <b>private group class</b>, often better value and more relaxed than joining a public class. Book a few weeks ahead, the popular evening slots fill up.</div>
+    </div>
+
+    <div id="florence-days"></div>
+
+    <div class="feature-exp tucci">
+      <div class="fe-head">
+        <img class="fe-photo" src="data:image/webp;base64,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" alt="Stanley Tucci">
+        <div>
+          <span class="eyebrow">As Seen on Searching for Italy</span>
+          <h3>Stanley Tucci's Florence</h3>
+        </div>
+      </div>
+      <p>Stanley Tucci filmed his love letter to Tuscan food in and around Florence. These are the places and dishes he sought out, leaning into the region's humble "poor food" classics done exceptionally well.</p>
+      <div class="fe-options">
+        <a class="fe-opt" href="https://www.cinghialebianco.net/en-gb" target="_blank" rel="noopener">
+          <div class="nm">Osteria del Cinghiale Bianco</div>
+          <div class="url">cinghialebianco.net</div>
+          <p>A Tucci favourite in a 14th-century tower on Borgo San Jacopo in the Oltrarno, a short walk across the river. He praised the panzanella here. Also known for truffle flan, pappardelle with wild boar ragù, and roast suckling pig.</p>
+          <span class="fp">Oltrarno &middot; book ahead</span>
+        </a>
+        <div class="fe-opt">
+          <div class="nm">Dalla Lola</div>
+          <p>In working-class Santo Spirito, chef Matilde Pettini celebrates Florence's humble, historic dishes. Tucci's pick for traditional Tuscan cooking done with real care.</p>
+          <span class="fp">Santo Spirito &middot; reserve direct</span>
+        </div>
+        <div class="fe-opt">
+          <div class="nm">Nugolo</div>
+          <p>Where Tucci tried a contemporary, foamy reinvention of the classic Tuscan panzanella. The modern, creative side of Florentine cooking.</p>
+          <span class="fp">Contemporary Tuscan</span>
+        </div>
+        <div class="fe-opt">
+          <div class="nm">Mercato di Sant'Ambrogio</div>
+          <p>The liveliest market in Florence, where Tucci shopped for the meat to make bistecca alla Fiorentina. A great morning wander with food stalls and a lunch counter.</p>
+          <span class="fp">Market &middot; mornings</span>
+        </div>
+      </div>
+      <div class="fe-tip">🥩 Tucci's Florence must-eat is the <b>bistecca alla Fiorentina</b>, the towering Tuscan T-bone served very rare. It is sold by weight (al etto) and meant to be shared, so order one for the table.</div>
+    </div>
+
+    <div class="city-band"><h3>🏛️ Rome</h3><span class="meta">Days 8&ndash;11 &middot; Trastevere Hotel &middot; Sept 8&ndash;11</span><hr></div>
+    <div id="rome-days"></div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Find Your Way</div>
+      <h2>Trip Map</h2>
+      <p>Every restaurant, museum, winery, and market from this guide, pinned and colour-coded. Tap a pin and hit "Open in Maps" for live directions on your phone. Filter by city below.</p>
+    </div>
+    <div class="map-controls">
+      <button data-city="all" class="active">All</button>
+      <button data-city="Florence">🌿 Florence</button>
+      <button data-city="Tuscany">🍇 Tuscany</button>
+      <button data-city="Rome">🏛️ Rome</button>
+    </div>
+    <div id="leafletmap"></div>
+    <div class="map-legend">
+      <span><i style="background:#3f6d78"></i>Sights</span>
+      <span><i style="background:#bf5333"></i>Food</span>
+      <span><i style="background:#6b2737"></i>Wineries</span>
+      <span><i style="background:#5f6b43"></i>Bars</span>
+      <span><i style="background:#c79a3e"></i>Gelato</span>
+      <span><i style="background:#9c6233"></i>Markets</span>
+      <span><i style="background:#8a4f9c"></i>Cooking</span>
+    </div>
+    <div class="map-dl">📍 Want it offline with turn-by-turn navigation? Import <b>italy-map.kml</b> into Google My Maps (mymaps.google.com → Create a new map → Import), then open it in the Google Maps app and download the area for offline use. Easy to share with the whole family.</div>
+  </div>
+</section>
+
+<!-- BUDGET -->
+<section id="budget">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">No Surprises</div>
+      <h2>Budget Breakdown</h2>
+      <p>Realistic estimates in USD for all eight travelers across 11 days. Flights are the biggest variable, so book those as early as you can. EUR converted at roughly 1.10 USD/EUR.</p>
+    </div>
+
+    <div class="budget-total">
+      <div class="big">$25,000 &ndash; $42,000</div>
+      <div class="pp">&asymp; $3,100 &ndash; $5,250 per person &middot; 8 travelers &middot; 11 days</div>
+      <small>Estimated Total &middot; Italy September 2027</small>
+    </div>
+
+    <div class="budget-grid" id="budget-grid"></div>
+    <div class="callout">
+      <h4>💡 Smart money moves</h4>
+      <p>Kids under 4 often fly free or at reduced rates, so factor that in for your two-year-old. Book flights and Galleria Borghese as early as possible. Uffizi and Accademia tickets open around 3 months out. The optional cooking class is shown in its own card and is not included in the headline total above.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE YOU GO -->
+<section id="before">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Get It Done</div>
+      <h2>Before You Go</h2>
+      <p>The most important things are passports and flights. Everything else can wait a little. Colour-coded tags show what needs to happen when.</p>
+    </div>
+    <div class="panel-grid" id="checklist"></div>
+  </div>
+</section>
+
+<!-- PACKING -->
+<section id="packing">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Pack Light</div>
+      <h2>Packing Essentials</h2>
+      <p>The golden rule: pack lighter than you think you need to. You will walk on cobblestones, navigate airports, and move between two cities. Less is genuinely more.</p>
+    </div>
+    <div class="panel-grid" id="packing-grid"></div>
+    <div class="callout">
+      <h4>✈️ Flying internationally</h4>
+      <p>Check in online 24 hours before your flight and download your boarding pass. Arrive early, international departures need more time for passport control and security, so allow at least 3 hours. Set your watch to Italian time as soon as you board, and drink water, not alcohol, on the flight.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STYLE -->
+<section id="style">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Dress the Part</div>
+      <h2>What to Wear &amp; What Not To</h2>
+      <p>Italians notice what you wear, not in a judgmental way, just in the way that style is part of daily life. Nothing here requires shopping, just a few things to keep in mind when you pack.</p>
+    </div>
+    <div class="doavoid">
+      <div class="col do">
+        <h3>✓ Do Wear</h3>
+        <ul>
+          <li><b>Clean leather or canvas shoes</b><span>White leather sneakers (Veja, New Balance 550s) are perfectly Italian. Dirty running shoes are not.</span></li>
+          <li><b>Well-fitted trousers or dark jeans</b><span>Slim or straight cut. Avoid anything baggy or distressed.</span></li>
+          <li><b>Linen or cotton dresses and blouses</b><span>Floaty and breathable, perfect for September heat.</span></li>
+          <li><b>Simple, solid-colour tops</b><span>Quality basics in muted tones: navy, white, terracotta, olive.</span></li>
+          <li><b>A light scarf or wrap</b><span>Essential for churches, and a layer for cool evenings.</span></li>
+          <li><b>Sunglasses</b><span>Italians love them. Any style, the more expressive the better.</span></li>
+          <li><b>A structured tote or small leather bag</b><span>Crossbody bags work perfectly for day trips.</span></li>
+        </ul>
+      </div>
+      <div class="col avoid">
+        <h3>✗ Avoid</h3>
+        <ul>
+          <li><b>Baseball caps</b><span>The single biggest giveaway. Leave them at home.</span></li>
+          <li><b>Athletic / running shoes</b><span>Nike, HOKA, Brooks: great for the gym, not for the piazza.</span></li>
+          <li><b>Cargo shorts</b><span>Especially with multiple pockets. Italians simply do not wear these.</span></li>
+          <li><b>Graphic tees with logos or slogans</b><span>College logos, sports teams, "I &hearts; Italy" shirts: instant tourist flags.</span></li>
+          <li><b>A giant hiking backpack in the city</b><span>An expedition-size bag screams tourist and is a pickpocket target.</span></li>
+          <li><b>Flip flops in the city</b><span>Fine at the pool. Not for cobblestone streets or restaurants.</span></li>
+          <li><b>Walking with your map app open</b><span>Study the route first. Looking lost is fine, advertising it isn't.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h4>⛪ The church rule, strictly enforced</h4>
+      <p>To enter the Vatican, Sistine Chapel, or any Italian church, shoulders and knees must be covered, for everyone including the kids. Guards will turn you away at the door, no exceptions. This applies to all eight of you. September is warm, so a lightweight scarf or sarong in your bag solves everything.</p>
+    </div>
+
+    <h3 style="color:var(--wine);font-size:1.4rem;text-align:center;margin:34px 0 6px">September Weather</h3>
+    <div class="weather">
+      <div class="w-card"><h4>Florence</h4><div class="temp">25&ndash;30&deg;C</div><p>77&ndash;86&deg;F &middot; Warm and sunny, occasional humidity. Light layers for evenings.</p></div>
+      <div class="w-card"><h4>Tuscany</h4><div class="temp">22&ndash;28&deg;C</div><p>72&ndash;82&deg;F &middot; Slightly cooler than Florence. Comfortable for wine trips.</p></div>
+      <div class="w-card"><h4>Rome</h4><div class="temp">26&ndash;31&deg;C</div><p>79&ndash;88&deg;F &middot; Hotter than Florence. Breathable fabrics are essential.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PHRASES -->
+<section id="phrases">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Parla Italiano</div>
+      <h2>Useful Italian Phrases</h2>
+      <p>You do not need to speak Italian to have an amazing trip, but a few phrases go a long way. Start every interaction with a greeting, say please and thank you, and you will be welcomed everywhere. Tap the 🔊 on any phrase to hear it spoken aloud and practice.</p>
+    </div>
+    <div class="phrase-wrap">
+      <table class="phrase-table">
+        <caption>Essentials</caption>
+        <thead><tr><th>Italian</th><th>Say it like</th><th>Meaning</th></tr></thead>
+        <tbody id="phrases-essentials"></tbody>
+      </table>
+      <table class="phrase-table">
+        <caption>At the Restaurant</caption>
+        <thead><tr><th>Italian</th><th>Say it like</th><th>Meaning</th></tr></thead>
+        <tbody id="phrases-restaurant"></tbody>
+      </table>
+    </div>
+    <div class="callout">
+      <h4>🔑 The one phrase that unlocks Italy</h4>
+      <p>Start any interaction with "Buongiorno!" and end it with "Grazie mille!" (a thousand thanks). Walking into a shop, a museum, a winery, always greet first. Italians find it rude to launch straight into a request. That one habit alone will make your whole trip smoother. And remember: a "caffè" is always an espresso, drunk standing at the bar for the cheaper price.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LINKS -->
+<section id="links">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">Book Direct</div>
+      <h2>Sites &amp; Food</h2>
+      <p>All links go directly to the official sites, no third-party agencies or middlemen. Book directly to get the best price and the most flexibility.</p>
+    </div>
+    <div id="links-wrap"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="flag">🇮🇹</div>
+  <h3>Andiamo!</h3>
+  <p>Buy wine, olive oil, and local products to fill your checked luggage before you leave. Stock up at a Trastevere enoteca the evening before: Les Vignerons (a Katie Parla pick) for vino and craft beer.</p>
+  <div class="grazie">Grazie mille &middot; See you in Italy, September 2027</div>
+</footer>
+
+<div class="print-fab-wrap no-print">
+  <div class="print-menu" id="printMenu">
+    <button data-mode="all">📄 Whole document<small>Itinerary, budget, packing, everything</small></button>
+    <button data-mode="checklist">✅ My checklist only<small>Before You Go + packing, with your ticks</small></button>
+  </div>
+  <button class="print-fab" id="printBtn">🖨️ Export / Print</button>
+</div>
+
+<script>
+const itinerary = [
+ {n:1,t:"Arrival & Settling In",d:"Sept 1",city:"florence",blocks:[
+   {cat:"all",label:"Everyone Together",text:"Arrive, check into the downtown apartment, and rest. Short evening walk to get your bearings, Piazza della Repubblica is steps away. Early, low-key dinner near the apartment. Everyone sleeps early."},
+   {cat:"food",label:"Food",items:[{n:"Buca Mario",d:"Florence's oldest restaurant, casual and welcoming. Great for a tired first-night group. Or ask the apartment host for their neighbourhood favourite.",p:"Dinner ~€35–45/pp (~$39–50)"}]}
+ ]},
+ {n:2,t:"Florence Orientation",d:"Sept 2",city:"florence",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Morning coffee at Cantinetta Verrazzano. Gentle stroll through the historic centre: Piazza del Duomo, the Baptistery doors, Ponte Vecchio, and Oltrarno. Lunch at 'ino for their famous schiacciata sandwiches. Afternoon free."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Same walk is perfect for little ones: no museums, just streets and gelato. Piazza della Signoria has open space to roam. Grab lunch anywhere in Oltrarno. Afternoon nap at the apartment."},
+   {cat:"food",label:"Food",items:[
+     {n:"Cantinetta Verrazzano",d:"Breakfast & coffee.",p:"€5–8/pp (~$6–9)"},
+     {n:"'ino (Via dei Georgofili)",d:"Schiacciata sandwiches & wine.",p:"Lunch ~€15–20/pp (~$17–22)"},
+     {n:"Il Santo Bevitore",d:"Dinner in Oltrarno, sophisticated Florentine cuisine.",p:"Dinner ~€45–55/pp (~$50–61)"}]}
+ ]},
+ {n:3,t:"Uffizi Gallery & Oltrarno",d:"Sept 3",city:"florence",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Timed entry at the Uffizi Gallery: Botticelli, da Vinci, Michelangelo. Allow 2–3 hours. €26/pp (~$29), book at tickets.uffizi.it. Afternoon in Oltrarno exploring artisan workshops."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Skip the Uffizi, toddlers and 2+ hours of Renaissance art don't mix. Instead: Giardino Bardini for gorgeous garden views and open space (€10/pp, ~$11). Or explore Oltrarno's artisan streets at your own pace. Meet up for lunch."},
+   {cat:"food",label:"Food · Katie Parla Picks",items:[
+     {n:"All'Antico Ristoro di Cambi",d:"Katie Parla praised this for its classic Florentine dishes and tagliolini al tartufo bianco. Legendary lampredotto sandwiches too.",p:"Lunch ~€18–25/pp (~$20–28)"},
+     {n:"Buca dell'Orafo",d:"Another Katie Parla pick, tucked under the arcade near Ponte Vecchio. Save for dinner if Day 7 at Cammillo is full.",p:"Dinner ~€45–60/pp (~$50–66)"}]}
+ ]},
+ {n:4,t:"Chianti Wine Day Trip",d:"Sept 4",city:"florence",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Full day with your private driver (car seats for both girls) through the Chianti Classico wine region. Rolling hills, cypress trees, two winery stops with tastings and lunch. Back to Florence by early evening."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Both vineyards are chosen for being family-friendly: kids get grape juice tastings and open outdoor space. If the little ones hit a wall, the driver can take them back for a nap while adults finish tasting."},
+   {cat:"food",label:"Vineyards · Chianti",items:[
+     {n:"Stop 1 · Castello di Verrazzano (Greve in Chianti)",d:"Renaissance castle, award-winning Chianti Classico, medieval gardens, cellar tours. Kids welcome at reduced or free entry. Book ahead.",p:"Tasting from €25/pp (~$28) · verrazzano.com"},
+     {n:"Stop 2 · Fattoria San Michele a Torri",d:"Organic farm 20km from Florence with wine, olive oil, and farm animals (pigs, cows, goats, chickens) for the kids. Wide open outdoor space. Adults taste Chianti DOCG and Super Tuscan blends.",p:"Tasting from €20/pp (~$22)"},
+     {n:"Alternative · Salvadonica",d:"Book their vineyard picnic with local produce, cheese, salumi, and wine for adults. Kids' menu available.",p:"Picnic from €35/pp (~$39)"}]},
+   {cat:"food",label:"Food & Driver",items:[
+     {n:"Lunch at winery or trattoria en route",d:"",p:"€25–40/pp (~$28–44)"},
+     {n:"Private driver day rate",d:"Confirmed with car seats.",p:"€400–600 total (~$440–660)"}]}
+ ]},
+ {n:5,t:"Accademia & Mercato Centrale",d:"Sept 5",city:"florence",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Timed entry to the Accademia Gallery to see Michelangelo's David, genuinely awe-inspiring. €16/pp (~$18), galleriaaccademiafirenze.it. Browse Mercato Centrale for lunch, incredible food stalls. Relaxed afternoon."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Skip the Accademia. Head straight to Mercato Centrale for a vibrant, kid-friendly lunch together. Afternoon at Piazza Santissima Annunziata, a beautiful quieter square with space to breathe, or rest at the apartment."},
+   {cat:"food",label:"Food",items:[
+     {n:"S. Forno bakery",d:"Morning pastries and focaccia.",p:"€5–8/pp (~$6–9)"},
+     {n:"All'Antico Vinaio",d:"The most famous sandwich shop in Florence. Stuffed schiacciata bread, incredible fillings, expect a short queue. Worth every minute.",p:"€8–12/pp (~$9–13)"},
+     {n:"Mercato Centrale (upstairs food hall)",d:"Pasta, pizza, lampredotto, everything.",p:"Lunch €15–22/pp (~$17–24)"},
+     {n:"Trattoria Mario",d:"Historic no-frills lunch spot beloved by locals.",p:"Lunch ~€18–25/pp (~$20–28)"}]}
+ ]},
+ {n:6,t:"Siena & San Gimignano",d:"Sept 6",city:"florence",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Full day trip with driver. Morning in Siena: Piazza del Campo, the Cathedral, Torre del Mangia for epic views (€10/pp, ~$11). Afternoon in San Gimignano: medieval towers, famous gelato at Gelateria Dondoli, wine stop."},
+   {cat:"kids",label:"Kids & Relaxed",text:"This day works for everyone. Piazza del Campo is vast, kids can run while adults absorb the medieval square. In San Gimignano the towers are fascinating for all ages and the town is compact. The gelato at Dondoli is non-negotiable for the whole family."},
+   {cat:"food",label:"Vineyard · near San Gimignano",items:[
+     {n:"Casa Lucii",d:"Family-run organic winery, fourth-generation. Tours adapted for families with young children, stroller-friendly paths, grape juice tastings for kids, Vernaccia di San Gimignano for adults.",p:"Tasting from €20/pp (~$22) · casalucii.it"},
+     {n:"Alternative · Pietraserena",d:"Stroller-friendly, panoramic vineyard walks, all ages welcomed.",p:""}]},
+   {cat:"food",label:"Food",items:[
+     {n:"Osteria Il Carroccio (Siena)",d:"Traditional Sienese cuisine.",p:"Lunch ~€30–40/pp (~$33–44)"},
+     {n:"Gelateria Dondoli (San Gimignano)",d:"World Gelato Champion. Non-negotiable.",p:"€3–5/pp (~$3–6)"}]}
+ ]},
+ {n:7,t:"Last Day in Florence",d:"Sept 7",city:"florence",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Leisurely morning at S. Forno bakery. Free afternoon: revisit a favourite neighbourhood, shop at the San Lorenzo market or boutiques. End the day at Piazzale Michelangelo for sunset, the panoramic view over Florence with the Duomo, Arno, and rolling Tuscan hills is breathtaking and completely free. The whole family should be there for this one."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Boboli Gardens in the afternoon: sprawling grounds, fountains, and open space that kids love (€10/pp, ~$11). Then up to Piazzale Michelangelo for sunset, one of the great moments in Florence, stroller-friendly and free. Bring a bottle of wine from a nearby enoteca and watch the light turn golden over the rooftops."},
+   {cat:"food",label:"Special Dinner Suggestions",items:[
+     {n:"Cammillo",d:"Katie Parla's explicit top pick for a classic Florence dinner, the best place for a ristorante meal in the city. Exceptional fritti, hand-rolled pastas with Emilian roots, and more vegetable contorni than anywhere in town. White tablecloths, more elegant than a typical trattoria. Book ahead.",p:"Dinner ~€55–70/pp (~$61–77)"},
+     {n:"Buca dell'Orafo",d:"Also a Katie Parla pick, tucked under the arcade behind Ponte Vecchio. Porcini fritti in season, interesting twists on fresh pasta, understated and elegant. More intimate than Cammillo.",p:"Dinner ~€45–60/pp (~$50–66)"},
+     {n:"Il Guscio",d:"Her contemporary pick, fish and seafood-focused, between San Frediano and Santo Spirito. Good for something different from the Tuscan meat-and-pasta formula.",p:"Dinner ~€40–55/pp (~$44–61)"}]}
+ ]},
+ {n:8,t:"Travel to Rome + Trastevere Evening",d:"Sept 8",city:"rome",blocks:[
+   {cat:"all",label:"Everyone Together",text:"Morning Frecciarossa high-speed train Florence to Rome, ~€35–70/pp (~$39–77), trenitalia.com. About 1.5 hours. Check in to the Trastevere hotel. Afternoon orientation walk through the neighbourhood. Evening stroll along the cobblestones."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Train travel is fun for kids. Trastevere is ideal for little ones: pedestrian-friendly, manageable streets. Piazza di Santa Maria in Trastevere has a fountain kids can play around and is totally open. Early evening and early bedtime."},
+   {cat:"food",label:"Food · Katie Parla Picks",items:[
+     {n:"Latteria Trastevere",d:"Her top pick for wine, snacks, and nicest people in the neighbourhood. Perfect first-night spot.",p:"Wine from €6/glass (~$7)"},
+     {n:"Trapizzino",d:"Pizza pitas with Roman fillings, incredible Lazio wine list. Great for the whole group including kids.",p:"~€8–12/pp (~$9–13) · trapizzino.it"},
+     {n:"La Gensola",d:"Roman and Sicilian flavours, sit-down dinner.",p:"Dinner ~€45–60/pp (~$50–66)"},
+     {n:"Fior di Luna",d:"Her gelato pick in Trastevere. Hit this on your evening stroll.",p:"€3–4/pp (~$3–4)"}]},
+   {cat:"culture",label:"NYT Pick",items:[
+     {n:"Jerry Thomas Bar Room (Trastevere)",d:"Intimate six-table cocktail bar, Prohibition-era design, sophisticated original cocktails. Endorsed by both NYT and Katie Parla.",p:"Cocktails from €15 (~$17) · jerrythomasproject.it"}]}
+ ]},
+ {n:9,t:"Vatican & St. Peter's Basilica",d:"Sept 9",city:"rome",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Early start: Vatican Museums & Sistine Chapel with timed-entry tickets. Book the first slot to beat the crowds. €20 + €5 booking fee/pp (~$25 total), tickets.museivaticani.va. Then St. Peter's Basilica, free entry. Climb the dome for panoramic views (€8/pp, ~$9)."},
+   {cat:"kids",label:"Kids & Relaxed",text:"The Vatican with toddlers is genuinely very difficult: long queues, overwhelming crowds, not stroller-friendly in many areas. Alternative: Villa Torlonia, Rome's less-discovered park with Casino Nobile, a Moorish greenhouse, and the newly opened WWII bunker used by Mussolini. Far more interesting than a plain park. €17 all-access/pp (~$19)."},
+   {cat:"food",label:"Food · Katie Parla Picks",items:[
+     {n:"Supplì Roma",d:"Classic Roman supplì (fried rice balls). Classics only, skip the pizza.",p:"€5–8/pp (~$6–9) · suppliroma.it"},
+     {n:"La Tavernaccia Roma",d:"Pasta, slow-roasted meats, sweetest service in the game.",p:"Dinner ~€40–55/pp (~$44–61)"},
+     {n:"Freni e Frizioni",d:"Creative cocktails for aperitivo hour.",p:"Cocktails from €10 (~$11)"}]}
+ ]},
+ {n:10,t:"Colosseum, Forum & Galleria Borghese",d:"Sept 10",city:"rome",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Morning: Colosseum, Roman Forum & Palatine Hill (combined ticket), €18/pp (~$20), ticketing.colosseo.it. Afternoon: Galleria Borghese, Bernini sculptures and Caravaggio paintings. Strict 2-hour timed entry, book months ahead. €15/pp (~$17)."},
+   {cat:"kids",label:"Kids & Relaxed",text:"The Colosseum is surprisingly good with kids. The Galleria Borghese has a strict 2-hour limit, so split: adults do the gallery while kids enjoy Villa Borghese park outside with one parent, rowboats, bike rentals, a small zoo (Bioparco €16/pp, ~$18), and open space. Reunite after."},
+   {cat:"culture",label:"NYT Picks",items:[
+     {n:"Museo della Forma Urbis (new)",d:"A floor embossed with an 18th-century illustrated map of Rome alongside 3rd-century stone slabs. Short walk from the Colosseum, worth adding before your Forum visit.",p:"€11/pp (~$12) · museoformaurbs.it"},
+     {n:"Domus Tiberiana / Palatine Hill",d:"Reopened 2023 after decades of closure. Multimedia exhibitions, prime sunset views over the Forum. Already included in your Colosseum combined ticket.",p:""}]},
+   {cat:"food",label:"Food · Katie Parla Picks",items:[
+     {n:"Enoteca Antidoto",d:"Some of the most exciting contemporary cuisine in Rome, per Katie Parla. Dinner after the Borghese.",p:"Dinner ~€50–70/pp (~$55–77) · enotecaantidoto.it"},
+     {n:"Ristorante Il Ciak",d:"Her pick for a proper steak.",p:"Dinner ~€45–60/pp (~$50–66)"},
+     {n:"Otaleg!",d:"Incredible gelato in Trastevere (NYT + Katie Parla endorsed).",p:"€3–4/pp (~$3–4) · otaleg.com"}]}
+ ]},
+ {n:11,t:"Pantheon, Navona & Jewish Ghetto",d:"Sept 11",city:"rome",blocks:[
+   {cat:"culture",label:"Culture & History",text:"Morning: the Pantheon, €5/pp (~$6), pantheonroma.com. Stroll to Piazza Navona and Bernini's Fontana dei Quattro Fiumi. Afternoon in the Jewish Ghetto, Rome's oldest neighbourhood, with incredible fried artichokes. Evening at the Trevi Fountain at dusk when the light is beautiful."},
+   {cat:"kids",label:"Kids & Relaxed",text:"Best day for everyone together, no heavy museum visits. Piazza Navona has open space and street performers. The Trevi Fountain is magical for all ages, throwing coins is a must for the kids. The NYT also highlights Villa Farnesina (free) for Raphael frescoes, including what Katie Parla calls the world's first eggplant emoji, which may delight a four-year-old."},
+   {cat:"culture",label:"NYT Picks",items:[
+     {n:"Fountain tour",d:"The NYT frames your Pantheon and Navona stops as a newly refurbished fountain crawl: Piazza della Rotonda, Bernini's Fontana dei Quattro Fiumi at Navona (the Nile, Danube, Ganges and Rio de la Plata), then Piazza Farnese with 3rd-century granite basins from the Baths of Caracalla.",p:""},
+     {n:"Santa Maria del Popolo",d:"Free Renaissance basilica housing two Caravaggio masterpieces in their original setting, plus Raphael and Bernini sculptures. Worth a detour.",p:""}]},
+   {cat:"food",label:"Food · Katie Parla + NYT",items:[
+     {n:"Armando al Pantheon",d:"One of Rome's most beloved traditional restaurants, steps from the Pantheon. Book well ahead.",p:"Lunch ~€40–55/pp (~$44–61) · armandoalpantheon.it"},
+     {n:"Nonna Betta",d:"Fried artichokes (carciofi alla giudia) in the Jewish Ghetto.",p:"~€25–35/pp (~$28–39) · nonnabetta.it"},
+     {n:"Forma e Dispensa",d:"All the cheeses and cured meats. Perfect for an aperitivo spread or picnic.",p:""},
+     {n:"Otaleg! & Fatamorgana (Trastevere)",d:"Two gelato options back in your neighbourhood. NYT recommends both.",p:"€3 for 2 scoops (~$3)"}]}
+ ]},
+ {n:12,t:"Departure",d:"Sept 12",city:"rome",blocks:[
+   {cat:"all",label:"Everyone Together",text:"Final morning espresso and cornetto at a Trastevere café. Transfer to the airport. Arrivederci!"},
+   {cat:"all",label:"Tip",text:"Buy wine, olive oil, and local products to fill your checked luggage before you leave. Stock up at a Trastevere enoteca the evening before: Les Vignerons (a Katie Parla pick) for vino and craft beer."}
+ ]}
+];
+
+function dayHTML(day){
+  const cats = new Set(day.blocks.map(b=>b.cat));
+  const classes = ["day"];
+  if(cats.has("culture"))classes.push("has-culture");
+  if(cats.has("kids"))classes.push("has-kids");
+  if(cats.has("food"))classes.push("has-food");
+  let blocks = day.blocks.map(b=>{
+    let inner;
+    if(b.items){
+      inner = b.items.map(it=>`<div class="food-item"><div class="fn">${it.n}</div>${it.d?`<div class="fd">${it.d}</div>`:""}${it.p?`<span class="fp">${it.p}</span>`:""}</div>`).join("");
+    } else {
+      inner = `<p>${b.text}</p>`;
+    }
+    return `<div class="block cat-${b.cat}"><span class="block-label">${b.label}</span>${inner}</div>`;
+  }).join("");
+  return `<div class="${classes.join(" ")}">
+    <div class="day-head" onclick="this.parentElement.classList.toggle('open')">
+      <div class="day-num"><small>DAY</small><b>${day.n}</b></div>
+      <div class="day-title"><h4>${day.t}</h4><span class="date">${day.d}</span></div>
+      <div class="chev">▼</div>
+    </div>
+    <div class="day-body">${blocks}</div>
+  </div>`;
+}
+document.getElementById("florence-days").innerHTML = itinerary.filter(d=>d.city==="florence").map(dayHTML).join("");
+document.getElementById("rome-days").innerHTML = itinerary.filter(d=>d.city==="rome").map(dayHTML).join("");
+// open first day of each city
+document.querySelectorAll("#florence-days .day, #rome-days .day").forEach((d,i)=>{ if(i===0) d.classList.add("open"); });
+
+// filters
+document.querySelectorAll(".filters button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    document.body.dataset.filter = btn.dataset.f;
+    if(btn.dataset.f!=="all"){ document.querySelectorAll(".day").forEach(d=>d.classList.add("open")); }
+  });
+});
+
+// BUDGET
+const budget = [
+ {h:"✈️ Flights",sub:"$7,680–$12,000",rows:[
+   {l:"Round-trip flights (CA & OH → Florence/Rome)",s:"Economy, book 9–12 months ahead",a:"$7,200–$11,200"},
+   {l:"Checked bags",s:"1 per adult, shared for kids",a:"$480–$800"}]},
+ {h:"🏠 Accommodations",sub:"$3,400–$6,000",rows:[
+   {l:"Florence apartment, 7 nights",s:"4–5BR downtown near Duomo or Oltrarno, sleeps 8+",a:"$2,200–$3,800"},
+   {l:"Rome hotel, 4 nights",s:"Family-friendly, Trastevere, multiple rooms",a:"$1,200–$2,200"}]},
+ {h:"🚗 Ground Transport",sub:"$1,712–$2,976",rows:[
+   {l:"Private driver · Chianti day trip",s:"Car seats included, full day",a:"$440–$660"},
+   {l:"Private driver · Siena & San Gimignano",s:"Car seats included, full day",a:"$440–$660"},
+   {l:"Florence → Rome by train",s:"Trenitalia Frecciarossa, ~1.5 hrs",a:"$312–$616"},
+   {l:"Taxis & local transport",s:"Rome & Florence",a:"$320–$640"},
+   {l:"Airport transfers",s:"Arrivals & departures",a:"$200–$400"}]},
+ {h:"🍝 Food & Drink",sub:"$7,480–$12,408",rows:[
+   {l:"Breakfasts",s:"Pastries, coffee, bakeries",a:"$528–$880"},
+   {l:"Lunches",s:"Trattorias, markets, sandwiches",a:"$1,496–$2,464"},
+   {l:"Dinners",s:"Katie Parla picks, local trattorias",a:"$3,872–$5,808"},
+   {l:"Special dinner",s:"Florence night out",a:"$616–$1,584"},
+   {l:"Wine tastings",s:"Chianti, Siena route, bottles home",a:"$440–$704"},
+   {l:"Gelato, coffee, snacks, kids' treats",s:"",a:"$528–$968"}]},
+ {h:"🎨 Activities & Admissions",sub:"~$1,384–$1,468",rows:[
+   {l:"Uffizi Gallery",s:"€26 / ~$29 · advance booking essential",a:"~$232"},
+   {l:"Accademia (David)",s:"€16 / ~$18",a:"~$144"},
+   {l:"Galleria Borghese",s:"€15 / ~$17 · book months ahead",a:"~$136"},
+   {l:"Vatican Museums & Sistine Chapel",s:"€25 incl. fee / ~$28",a:"~$224"},
+   {l:"Colosseum, Forum & Palatine Hill",s:"€18 / ~$20 combined",a:"~$160"},
+   {l:"Pantheon",s:"€5 / ~$6",a:"~$48"},
+   {l:"Duomo dome climb",s:"€20–€30 / ~$22–$33",a:"$176–$264"},
+   {l:"Boboli Gardens",s:"€10 / ~$11",a:"~$88"},
+   {l:"Museo della Forma Urbis",s:"€11 / ~$12",a:"~$96"},
+   {l:"Villa Torlonia (Vatican alt.)",s:"€17 / ~$19 all-access",a:"~$76"}]},
+ {h:"📦 Misc & Buffer",sub:"$3,640–$7,600",rows:[
+   {l:"Travel insurance",s:"Recommended for the whole group",a:"$640–$1,200"},
+   {l:"Shopping, souvenirs, incidentals",s:"",a:"$800–$2,400"},
+   {l:"10% contingency buffer",s:"",a:"$2,200–$4,000"}]},
+ {h:"🍳 Optional Experiences",sub:"~$680–$1,240",rows:[
+   {l:"Cooking class in Florence",s:"Private group of 8 · Mama Florence or In Tavola · ~$85–$155/pp",a:"~$680–$1,240"}]}
+];
+document.getElementById("budget-grid").innerHTML = budget.map(c=>`
+  <div class="b-card">
+    <h3>${c.h}<span class="sub">${c.sub}</span></h3>
+    ${c.rows.map(r=>`<div class="b-row"><div class="lbl">${r.l}${r.s?`<small>${r.s}</small>`:""}</div><div class="amt">${r.a}</div></div>`).join("")}
+  </div>`).join("");
+
+// CHECKLIST
+const checklist = [
+ {h:"🛂 Passports",items:[
+   {t:"Check everyone's passport is valid 6+ months beyond Sept 12, 2027 (US and Canadian)",tag:"DO NOW",cls:"t-now"},
+   {t:"Renew any expiring passports, processing takes 3–6 months in both countries",tag:"DO NOW",cls:"t-now"},
+   {t:"Both girls need their own passports, apply immediately if not done",tag:"DO NOW",cls:"t-now"},
+   {t:"Bring copies of the girls' birth certificates, sometimes requested at border control",tag:"BEFORE TRIP",cls:"t-before"},
+   {t:"US travelers: apply or renew at travel.state.gov",tag:"DO NOW",cls:"t-now"},
+   {t:"Canadian traveler: apply or renew at canada.ca immigration-refugees-citizenship",tag:"DO NOW",cls:"t-now"}]},
+ {h:"🌍 Visas & ETIAS",items:[
+   {t:"US and Canadian citizens do not need a visa for stays under 90 days",tag:"NO ACTION",cls:"t-none"},
+   {t:"ETIAS required for everyone, US and Canadian. Online, ~€7, valid 3 years, at travel-europe.europa.eu",tag:"2027",cls:"t-when"}]},
+ {h:"💳 Bank & Currency",items:[
+   {t:"Get a no-foreign-transaction-fee card (Chase Sapphire, Capital One Venture, Amex Gold)",tag:"DO NOW",cls:"t-now"},
+   {t:"Notify your bank and cards of travel dates (Sept 1–12, 2027)",tag:"BEFORE TRIP",cls:"t-before"},
+   {t:"Use ATMs in Italy for euros, best rates. Avoid airport currency kiosks",tag:"TIP",cls:"t-tip"},
+   {t:"Italy is cash-friendly, especially markets and small restaurants. Always carry euros",tag:"TIP",cls:"t-tip"}]},
+ {h:"🩺 Health & Insurance",items:[
+   {t:"Purchase travel insurance for everyone (cancellation, medical, lost luggage)",tag:"DO NOW",cls:"t-now"},
+   {t:"Check whether your US health insurance covers international travel, most don't",tag:"DO NOW",cls:"t-now"},
+   {t:"Talk to your doctor about vaccinations or health precautions",tag:"6 MONTHS OUT",cls:"t-soon"},
+   {t:"Pack prescription medications, full trip plus extra, in your carry-on",tag:"BEFORE TRIP",cls:"t-before"},
+   {t:"Pack a small first aid kit: children's Tylenol, bandages, Dramamine",tag:"BEFORE TRIP",cls:"t-before"}]},
+ {h:"📅 Bookings to Lock In Early",items:[
+   {t:"Flights, book 9–12 months ahead from California and Ohio",tag:"BOOK EARLY",cls:"t-early"},
+   {t:"Florence apartment (4–5BR downtown), book when deposits open",tag:"BOOK EARLY",cls:"t-early"},
+   {t:"Trastevere hotel (Rome, 4 nights), book 6–9 months out",tag:"BOOK EARLY",cls:"t-early"},
+   {t:"Private driver for Tuscany, confirm car seats for both girls",tag:"BOOK EARLY",cls:"t-early"},
+   {t:"Galleria Borghese, timed entry sells out months ahead",tag:"BOOK EARLY",cls:"t-early"},
+   {t:"Uffizi Gallery, book online at tickets.uffizi.it",tag:"3 MONTHS OUT",cls:"t-soon"},
+   {t:"Accademia / David, advance tickets essential",tag:"3 MONTHS OUT",cls:"t-soon"},
+   {t:"Vatican Museums & Sistine Chapel, official site only",tag:"3 MONTHS OUT",cls:"t-soon"},
+   {t:"Armando al Pantheon, book well ahead",tag:"3 MONTHS OUT",cls:"t-soon"},
+   {t:"Florence dinner (Day 7), reserve Cammillo or Buca dell'Orafo",tag:"3 MONTHS OUT",cls:"t-soon"}]},
+ {h:"👶 For Families with Kids",items:[
+   {t:"Confirm the private driver provides car seats for both girls",tag:"WHEN BOOKING",cls:"t-when"},
+   {t:"Check airline lap-infant vs. seat policy for the two-year-old",tag:"DO NOW",cls:"t-now"},
+   {t:"Request cribs or travel cots from the apartment and hotel",tag:"WHEN BOOKING",cls:"t-when"},
+   {t:"Pack familiar snacks, small toys, and activities for flights and day trips",tag:"BEFORE TRIP",cls:"t-before"}]}
+];
+document.getElementById("checklist").innerHTML = checklist.map((p,pi)=>`
+  <div class="panel">
+    <h3>${p.h}</h3>
+    ${p.items.map((i,ii)=>`<div class="check checkable" data-key="chk-${pi}-${ii}"><div class="box"></div><div class="txt">${i.t}</div><span class="tag ${i.cls}">${i.tag}</span></div>`).join("")}
+  </div>`).join("");
+
+// PACKING
+const packing = [
+ {h:"📄 Documents, pack first",items:[
+   ["Passport","Valid 6+ months beyond Sept 12, 2027. Keep on you in a money belt or inside pocket, never a back or outer pocket."],
+   ["Travel insurance docs","Print a copy and save a digital version. Includes the emergency contact number."],
+   ["Credit & debit cards","At least two from different networks (Visa + Mastercard). Keep one separate, just in case."],
+   ["Phone with offline maps","Download Google Maps for Florence and Rome offline before you fly."],
+   ["Accommodation confirmations","Screenshot or print apartment and hotel bookings with addresses."]]},
+ {h:"🔌 Electronics & Power",items:[
+   ["European plug adapter","Italy uses Type F (two round prongs). Buy a universal adapter ($10–15), one per room minimum."],
+   ["Portable power bank","Long museum visits drain phones. A 10,000mAh bank keeps everyone going."],
+   ["International phone plan","Call your carrier to add data, or buy a local SIM at the airport. Roaming without a plan is brutal."],
+   ["Cleared camera storage","Delete old photos before you go. Bring a spare SD card if you use one."]]},
+ {h:"💊 Health & Comfort",items:[
+   ["All prescription meds","Full trip plus several extra days, in your carry-on, in original labelled bottles."],
+   ["Basic first aid kit","Plasters, ibuprofen, antihistamine, antidiarrheal, motion-sickness tablets for the kids."],
+   ["Sunscreen","September is warm and sunny. SPF 30+ for everyone, the sun is strong in Tuscany."],
+   ["Reusable water bottle","Italy has free fontanelle everywhere, especially in Rome. Saves money and plastic."],
+   ["Compact travel umbrella","September brings brief showers. A small folding one weighs almost nothing."]]},
+ {h:"👟 Shoes & Bags",items:[
+   ["Comfortable walking shoes","You'll walk 8–12km a day on cobblestones. Broken-in shoes only, no exceptions. Blisters will ruin the trip faster than anything."],
+   ["One smarter pair","For nicer dinners. Flat leather sandals or loafers. Block heels are safer on cobblestones than stilettos."],
+   ["Crossbody or anti-theft bag","Worn in front is safest. Avoid open-top totes in crowded piazzas and on transport."],
+   ["Small day bag or tote","Light enough to carry all day. A packable tote that folds into your main bag is ideal."]]}
+];
+document.getElementById("packing-grid").innerHTML = packing.map((p,pi)=>`
+  <div class="panel">
+    <h3>${p.h}</h3>
+    ${p.items.map((i,ii)=>`<div class="check checkable" data-key="pack-${pi}-${ii}"><div class="box"></div><div class="txt"><b>${i[0]}.</b> ${i[1]}</div></div>`).join("")}
+  </div>`).join("");
+
+// Tickable boxes, remembered per device
+(function(){
+  let saved={};
+  try{ saved=JSON.parse(localStorage.getItem("italyChecks")||"{}"); }catch(e){}
+  document.querySelectorAll(".check.checkable").forEach(el=>{
+    const key=el.dataset.key;
+    if(saved[key]) el.classList.add("done");
+    el.addEventListener("click",()=>{
+      el.classList.toggle("done");
+      saved[key]=el.classList.contains("done");
+      try{ localStorage.setItem("italyChecks",JSON.stringify(saved)); }catch(e){}
+    });
+  });
+})();
+
+// PHRASES
+const essentials = [
+ ["Ciao","chow","Hi / bye (informal)"],
+ ["Buongiorno","bwohn-JOR-no","Good morning / good day"],
+ ["Buonasera","bwohn-ah-SEH-ra","Good evening"],
+ ["Per favore","pair fah-VOH-reh","Please"],
+ ["Grazie","GRAT-syeh","Thank you"],
+ ["Prego","PREH-go","You're welcome / go ahead"],
+ ["Mi scusi","mee SKOO-zee","Excuse me (formal)"],
+ ["Scusa","SKOO-za","Sorry / excuse me (informal)"],
+ ["Sì / No","see / no","Yes / No"],
+ ["Non capisco","non kah-PEES-ko","I don't understand"],
+ ["Parla inglese?","PAR-la een-GLEH-zeh","Do you speak English?"],
+ ["Può ripetere?","pwoh ree-PEH-teh-reh","Can you repeat that?"]
+];
+const restaurant = [
+ ["Un tavolo per otto, per favore","oon TAH-voh-lo pair OT-to","A table for eight, please"],
+ ["Ho una prenotazione","oh OO-na preh-no-tat-SYOH-neh","I have a reservation"],
+ ["Il menù, per favore","eel meh-NOO","The menu, please"],
+ ["Cosa mi consiglia?","KOH-za mee kon-SEEL-ya","What do you recommend?"],
+ ["Vorrei...","vor-RAY","I would like..."],
+ ["Per me, questo","pair meh KWES-to","For me, this one (pointing)"],
+ ["È delizioso!","eh deh-leets-YOH-zo","It's delicious!"],
+ ["Il conto, per favore","eel KON-to","The bill, please"],
+ ["Possiamo pagare separatamente?","pos-SYAH-mo pah-GAH-reh","Can we pay separately?"],
+ ["Senza glutine","SEN-za GLOO-tee-neh","Gluten-free"],
+ ["Sono allergico/a a...","SOH-no al-LEHR-jee-ko","I'm allergic to..."],
+ ["Acqua naturale / frizzante","AH-kwa / freet-TSAN-teh","Still / sparkling water"],
+ ["Un caffè, per favore","oon kaf-FEH","An espresso, please"],
+ ["Che ore aprite?","keh OH-reh ah-PREE-teh","What time do you open?"]
+];
+const phRow = r=>`<tr><td class="it"><button class="say-btn no-print" data-say="${r[0]}" aria-label="Hear pronunciation">🔊</button>${r[0]}</td><td class="say">${r[1]}</td><td>${r[2]}</td></tr>`;
+document.getElementById("phrases-essentials").innerHTML = essentials.map(phRow).join("");
+document.getElementById("phrases-restaurant").innerHTML = restaurant.map(phRow).join("");
+
+// Spoken pronunciation via the browser's Italian voice
+(function(){
+  const supported = "speechSynthesis" in window;
+  if(supported){ try{ speechSynthesis.getVoices(); }catch(e){} speechSynthesis.onvoiceschanged = function(){}; }
+  function speakItalian(text, btn){
+    if(!supported){ alert("Your browser does not support spoken pronunciation. Try Chrome or Safari."); return; }
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "it-IT";
+    u.rate = 0.9;
+    const it = speechSynthesis.getVoices().find(v=>v.lang && v.lang.toLowerCase().indexOf("it")===0);
+    if(it) u.voice = it;
+    if(btn){ btn.classList.add("speaking"); u.onend = u.onerror = ()=>btn.classList.remove("speaking"); }
+    speechSynthesis.speak(u);
+  }
+  document.querySelectorAll(".say-btn").forEach(b=>{
+    b.addEventListener("click", ()=>speakItalian(b.dataset.say, b));
+  });
+})();
+
+// LINKS
+const links = [
+ {cat:"Florence · Museums & Sites",items:[
+   ["Museum","Uffizi Gallery","tickets.uffizi.it"],
+   ["Museum","Galleria dell'Accademia · David","galleriaaccademiafirenze.it/en/tickets"],
+   ["Museum","Boboli Gardens","uffizi.it/en/tickets"],
+   ["Museum","Duomo Florence · dome climb","museumflorence.com"]]},
+ {cat:"Florence · Restaurants & Food",items:[
+   ["Food","All'Antico Vinaio · legendary sandwiches","allanticovinaio.com"],
+   ["Food","Cantinetta Verrazzano · breakfast & wine","verrazzano.com/en/the-cantinetta-in-florence"],
+   ["Food","Il Santo Bevitore · Oltrarno dinner","ilsantobevitore.com"],
+   ["Food","All'Antico Ristoro di Cambi","anticoristorodicambi.it"],
+   ["Food","Mercato Centrale · food hall","mercatocentrale.it/firenze"],
+   ["Food","Cammillo · Katie Parla top pick","trattoriacammillo.it"],
+   ["Food","Buca dell'Orafo · Katie Parla pick","bucadellorafo.com"],
+   ["Food","Il Guscio · seafood, San Frediano","ilguscio.it"],
+   ["Food","Osteria del Cinghiale Bianco · Stanley Tucci pick","cinghialebianco.net"]]},
+ {cat:"Tuscany · Wineries & Transport",items:[
+   ["Winery","Castello di Verrazzano · Chianti","verrazzano.com"],
+   ["Winery","Fattoria San Michele a Torri","fattoriasanmicheleatorri.it"],
+   ["Winery","Salvadonica · vineyard picnic","salvadonica.it"],
+   ["Winery","Casa Lucii · family winery","casalucii.it"],
+   ["Food","Gelateria Dondoli · San Gimignano","gelateria-dondoli.com"],
+   ["Train","Trenitalia · Florence to Rome","trenitalia.com"]]},
+ {cat:"Rome · Museums & Sites",items:[
+   ["Museum","Vatican Museums & Sistine Chapel","tickets.museivaticani.va"],
+   ["Museum","Colosseum, Forum & Palatine","ticketing.colosseo.it"],
+   ["Museum","Galleria Borghese","borghese.gallery/tickets"],
+   ["Museum","Pantheon","pantheonroma.com"],
+   ["Museum","Villa Torlonia","museivillatorlonia.it"],
+   ["Museum","Museo della Forma Urbis","museoformaurbs.it"]]},
+ {cat:"Rome · Restaurants, Bars & Gelato",items:[
+   ["Food","Armando al Pantheon","armandoalpantheon.it"],
+   ["Food","Trapizzino · Trastevere","trapizzino.it"],
+   ["Food","La Gensola · Roman & Sicilian","ristorantelagensola.it"],
+   ["Food","Nonna Betta · fried artichokes","nonnabetta.it"],
+   ["Food","Supplì Roma","suppliroma.it"],
+   ["Food","La Tavernaccia Roma","latavernacciaroma.com"],
+   ["Food","Enoteca Antidoto","enotecaantidoto.it"],
+   ["Food","Fior di Luna · gelato","fiordilunagelato.it"],
+   ["Food","Otaleg! · gelato","otaleg.com"],
+   ["Food","Marita · pizza by Roberta Esposito","maritaroma.it"],
+   ["Bar","Jerry Thomas Bar Room","jerrythomasproject.it"],
+   ["Bar","Freni e Frizioni","freniefrizioni.com"]]}
+];
+document.getElementById("links-wrap").innerHTML = links.map(g=>`
+  <div class="link-cat">
+    <h3>${g.cat}</h3>
+    <div class="link-grid">
+      ${g.items.map(i=>`<a class="link-item" href="https://${i[2]}" target="_blank" rel="noopener"><span class="kind">${i[0]}</span><span class="nm">${i[1]}</span><span class="url">${i[2]}</span></a>`).join("")}
+    </div>
+  </div>`).join("");
+
+// MAP
+const places = /*PLACES_DATA*/[
+  {n:"Uffizi Gallery",c:"Florence",cat:"sight",lat:43.768313,lng:11.255801,q:"Uffizi Gallery, Firenze, Italy"},
+  {n:"Galleria dell'Accademia (David)",c:"Florence",cat:"sight",lat:43.776917,lng:11.258758,q:"Galleria dell'Accademia (David), Firenze, Italy"},
+  {n:"Duomo (Florence Cathedral)",c:"Florence",cat:"sight",lat:43.773102,lng:11.256574,q:"Duomo (Florence Cathedral), Firenze, Italy"},
+  {n:"Boboli Gardens",c:"Florence",cat:"sight",lat:43.763278,lng:11.249899,q:"Boboli Gardens, Firenze, Italy"},
+  {n:"Piazzale Michelangelo",c:"Florence",cat:"sight",lat:43.762828,lng:11.264993,q:"Piazzale Michelangelo, Firenze, Italy"},
+  {n:"Giardino Bardini",c:"Florence",cat:"sight",lat:43.764212,lng:11.257128,q:"Giardino Bardini, Firenze, Italy"},
+  {n:"Ponte Vecchio",c:"Florence",cat:"sight",lat:43.768025,lng:11.253158,q:"Ponte Vecchio, Firenze, Italy"},
+  {n:"Piazza della Signoria",c:"Florence",cat:"sight",lat:43.769574,lng:11.255864,q:"Piazza della Signoria, Firenze, Italy"},
+  {n:"Piazza della Repubblica",c:"Florence",cat:"sight",lat:43.771519,lng:11.254011,q:"Piazza della Repubblica, Firenze, Italy"},
+  {n:"Piazza Santissima Annunziata",c:"Florence",cat:"sight",lat:43.776455,lng:11.260598,q:"Piazza Santissima Annunziata, Firenze, Italy"},
+  {n:"San Lorenzo Market",c:"Florence",cat:"market",lat:43.776585,lng:11.253209,q:"San Lorenzo Market, Firenze, Italy"},
+  {n:"Mercato Centrale",c:"Florence",cat:"market",lat:43.776915,lng:11.252173,q:"Mercato Centrale, Firenze, Italy"},
+  {n:"Mercato di Sant'Ambrogio",c:"Florence",cat:"market",lat:43.770482,lng:11.266782,q:"Mercato di Sant'Ambrogio, Firenze, Italy"},
+  {n:"Buca Mario",c:"Florence",cat:"food",lat:43.772332,lng:11.249164,q:"Buca Mario, Firenze, Italy"},
+  {n:"Cantinetta Verrazzano",c:"Florence",cat:"food",lat:43.770897,lng:11.255659,q:"Cantinetta Verrazzano, Firenze, Italy"},
+  {n:"'ino",c:"Florence",cat:"food",lat:43.768426,lng:11.254853,q:"'ino, Firenze, Italy"},
+  {n:"Il Santo Bevitore",c:"Florence",cat:"food",lat:43.769037,lng:11.24676,q:"Il Santo Bevitore, Firenze, Italy"},
+  {n:"All'Antico Ristoro di Cambi",c:"Florence",cat:"food",lat:43.77042,lng:11.242041,q:"All'Antico Ristoro di Cambi, Firenze, Italy"},
+  {n:"Buca dell'Orafo",c:"Florence",cat:"food",lat:43.76844,lng:11.254021,q:"Buca dell'Orafo, Firenze, Italy"},
+  {n:"All'Antico Vinaio",c:"Florence",cat:"food",lat:43.768407,lng:11.257396,q:"All'Antico Vinaio, Firenze, Italy"},
+  {n:"Trattoria Mario",c:"Florence",cat:"food",lat:43.776567,lng:11.254545,q:"Trattoria Mario, Firenze, Italy"},
+  {n:"S. Forno",c:"Florence",cat:"food",lat:43.767747,lng:11.245643,q:"S. Forno, Firenze, Italy"},
+  {n:"Cammillo",c:"Florence",cat:"food",lat:43.768109,lng:11.250016,q:"Cammillo, Firenze, Italy"},
+  {n:"Il Guscio",c:"Florence",cat:"food",lat:43.769075,lng:11.240446,q:"Il Guscio, Firenze, Italy"},
+  {n:"Osteria del Cinghiale Bianco",c:"Florence",cat:"food",lat:44.112783,lng:11.54603,q:"Osteria del Cinghiale Bianco, Firenze, Italy"},
+  {n:"Dalla Lola",c:"Florence",cat:"food",lat:43.768082,lng:11.242188,q:"Dalla Lola, Firenze, Italy"},
+  {n:"Nugolo",c:"Florence",cat:"food",lat:43.770882,lng:11.260358,q:"Nugolo, Firenze, Italy"},
+  {n:"Mama Florence (cooking school)",c:"Florence",cat:"cooking",lat:43.766078,lng:11.240618,q:"Mama Florence (cooking school), Firenze, Italy"},
+  {n:"In Tavola (cooking school)",c:"Florence",cat:"cooking",lat:43.766594,lng:11.25049,q:"In Tavola (cooking school), Firenze, Italy"},
+  {n:"Castello di Verrazzano",c:"Tuscany",cat:"winery",lat:43.601564,lng:11.284605,q:"Castello di Verrazzano, Italy"},
+  {n:"Fattoria San Michele a Torri",c:"Tuscany",cat:"winery",lat:43.701999,lng:11.129656,q:"Fattoria San Michele a Torri, Italy"},
+  {n:"Salvadonica",c:"Tuscany",cat:"winery",lat:43.635765,lng:11.218639,q:"Salvadonica, Italy"},
+  {n:"Casa Lucii",c:"Tuscany",cat:"winery",lat:43.503847,lng:11.081379,q:"Casa Lucii, Italy"},
+  {n:"Pietraserena",c:"Tuscany",cat:"winery",lat:43.47646,lng:11.052916,q:"Pietraserena, Italy"},
+  {n:"Gelateria Dondoli",c:"Tuscany",cat:"gelato",lat:43.467327,lng:11.043331,q:"Gelateria Dondoli, Italy"},
+  {n:"Osteria Il Carroccio (Siena)",c:"Tuscany",cat:"food",lat:43.317497,lng:11.331378,q:"Osteria Il Carroccio (Siena), Italy"},
+  {n:"Piazza del Campo (Siena)",c:"Tuscany",cat:"sight",lat:43.318439,lng:11.331558,q:"Piazza del Campo (Siena), Italy"},
+  {n:"San Gimignano",c:"Tuscany",cat:"sight",lat:43.467799,lng:11.043211,q:"San Gimignano, Italy"},
+  {n:"Vatican Museums & Sistine Chapel",c:"Rome",cat:"sight",lat:41.904961,lng:12.454662,q:"Vatican Museums & Sistine Chapel, Roma, Italy"},
+  {n:"St. Peter's Basilica",c:"Rome",cat:"sight",lat:41.902157,lng:12.45371,q:"St. Peter's Basilica, Roma, Italy"},
+  {n:"Colosseum",c:"Rome",cat:"sight",lat:41.890942,lng:12.491903,q:"Colosseum, Roma, Italy"},
+  {n:"Roman Forum & Palatine Hill",c:"Rome",cat:"sight",lat:41.891641,lng:12.48673,q:"Roman Forum & Palatine Hill, Roma, Italy"},
+  {n:"Galleria Borghese",c:"Rome",cat:"sight",lat:41.914113,lng:12.492105,q:"Galleria Borghese, Roma, Italy"},
+  {n:"Villa Borghese / Bioparco",c:"Rome",cat:"sight",lat:41.917599,lng:12.486773,q:"Villa Borghese / Bioparco, Roma, Italy"},
+  {n:"Pantheon",c:"Rome",cat:"sight",lat:41.898616,lng:12.476833,q:"Pantheon, Roma, Italy"},
+  {n:"Piazza Navona",c:"Rome",cat:"sight",lat:41.898928,lng:12.473118,q:"Piazza Navona, Roma, Italy"},
+  {n:"Trevi Fountain",c:"Rome",cat:"sight",lat:41.900978,lng:12.483285,q:"Trevi Fountain, Roma, Italy"},
+  {n:"Jewish Ghetto",c:"Rome",cat:"sight",lat:41.89252,lng:12.478571,q:"Jewish Ghetto, Roma, Italy"},
+  {n:"Villa Torlonia",c:"Rome",cat:"sight",lat:41.913643,lng:12.511624,q:"Villa Torlonia, Roma, Italy"},
+  {n:"Museo della Forma Urbis",c:"Rome",cat:"sight",lat:41.886668,lng:12.490861,q:"Museo della Forma Urbis, Roma, Italy"},
+  {n:"Santa Maria del Popolo",c:"Rome",cat:"sight",lat:41.911473,lng:12.476546,q:"Santa Maria del Popolo, Roma, Italy"},
+  {n:"Villa Farnesina",c:"Rome",cat:"sight",lat:41.893628,lng:12.467333,q:"Villa Farnesina, Roma, Italy"},
+  {n:"Piazza Santa Maria in Trastevere",c:"Rome",cat:"sight",lat:41.889564,lng:12.470508,q:"Piazza Santa Maria in Trastevere, Roma, Italy"},
+  {n:"Latteria Trastevere",c:"Rome",cat:"food",lat:41.891505,lng:12.469721,q:"Latteria Trastevere, Roma, Italy"},
+  {n:"Trapizzino",c:"Rome",cat:"food",lat:41.879711,lng:12.473764,q:"Trapizzino, Roma, Italy"},
+  {n:"La Gensola",c:"Rome",cat:"food",lat:41.889388,lng:12.476431,q:"La Gensola, Roma, Italy"},
+  {n:"Fior di Luna",c:"Rome",cat:"gelato",lat:41.889607,lng:12.472643,q:"Fior di Luna, Roma, Italy"},
+  {n:"Jerry Thomas Bar Room",c:"Rome",cat:"bar",lat:41.897847,lng:12.467919,q:"Jerry Thomas Bar Room, Roma, Italy"},
+  {n:"Suppl\u00ec Roma",c:"Rome",cat:"food",lat:41.887137,lng:12.471738,q:"Suppl\u00ec Roma, Roma, Italy"},
+  {n:"La Tavernaccia",c:"Rome",cat:"food",lat:41.874097,lng:12.468631,q:"La Tavernaccia, Roma, Italy"},
+  {n:"Freni e Frizioni",c:"Rome",cat:"bar",lat:41.891284,lng:12.470669,q:"Freni e Frizioni, Roma, Italy"},
+  {n:"Enoteca Antidoto",c:"Rome",cat:"food",lat:41.918091,lng:12.461346,q:"Enoteca Antidoto, Roma, Italy"},
+  {n:"Ristorante Il Ciak",c:"Rome",cat:"food",lat:41.89098,lng:12.46953,q:"Ristorante Il Ciak, Roma, Italy"},
+  {n:"Otaleg!",c:"Rome",cat:"gelato",lat:41.888174,lng:12.470463,q:"Otaleg!, Roma, Italy"},
+  {n:"Armando al Pantheon",c:"Rome",cat:"food",lat:41.89906,lng:12.476199,q:"Armando al Pantheon, Roma, Italy"},
+  {n:"Nonna Betta",c:"Rome",cat:"food",lat:41.892754,lng:12.478118,q:"Nonna Betta, Roma, Italy"},
+  {n:"Forma e Dispensa",c:"Rome",cat:"food",lat:41.874473,lng:12.479318,q:"Forma e Dispensa, Roma, Italy"},
+  {n:"Fatamorgana",c:"Rome",cat:"gelato",lat:41.886502,lng:12.469195,q:"Fatamorgana, Roma, Italy"},
+  {n:"Marita",c:"Rome",cat:"food",lat:41.910534,lng:12.517229,q:"Marita, Roma, Italy"},
+  {n:"Les Vignerons",c:"Rome",cat:"bar",lat:41.886317,lng:12.468586,q:"Les Vignerons, Roma, Italy"}
+];
+(function(){
+  if(typeof L==="undefined"||!document.getElementById("leafletmap")) return;
+  const CAT={sight:["Sights","#3f6d78"],food:["Food","#bf5333"],winery:["Wineries","#6b2737"],bar:["Bars","#5f6b43"],gelato:["Gelato","#c79a3e"],market:["Markets","#9c6233"],cooking:["Cooking","#8a4f9c"]};
+  const map=L.map("leafletmap",{scrollWheelZoom:false}).setView([43.77,11.25],13);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap contributors"}).addTo(map);
+  const groups={Florence:L.layerGroup(),Tuscany:L.layerGroup(),Rome:L.layerGroup()};
+  const bounds={Florence:[],Tuscany:[],Rome:[]};
+  places.forEach(p=>{
+    const meta=CAT[p.cat]||CAT.sight;
+    const m=L.circleMarker([p.lat,p.lng],{radius:8,color:"#fff",weight:2,fillColor:meta[1],fillOpacity:1});
+    const q=encodeURIComponent(p.q||p.n);
+    m.bindPopup('<div class="map-popup"><b>'+p.n+'</b><span class="mp-cat">'+meta[0]+'</span><a href="https://www.google.com/maps/search/?api=1&query='+q+'" target="_blank" rel="noopener">Open in Maps ↗</a></div>');
+    if(groups[p.c]){ m.addTo(groups[p.c]); bounds[p.c].push([p.lat,p.lng]); }
+  });
+  Object.values(groups).forEach(g=>g.addTo(map));
+  const all=[].concat(bounds.Florence,bounds.Tuscany,bounds.Rome);
+  function show(city){
+    Object.entries(groups).forEach(([k,g])=>{ if(city==="all"||k===city){ g.addTo(map); } else { map.removeLayer(g); } });
+    const b=city==="all"?all:bounds[city];
+    if(b.length) map.fitBounds(b,{padding:[40,40],maxZoom:15});
+    setTimeout(()=>map.invalidateSize(),120);
+  }
+  document.querySelectorAll(".map-controls button").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+      document.querySelectorAll(".map-controls button").forEach(b=>b.classList.remove("active"));
+      btn.classList.add("active");
+      show(btn.dataset.city);
+    });
+  });
+  show("all");
+  setTimeout(()=>map.invalidateSize(),400);
+})();
+
+// Print / PDF export
+(function(){
+  const btn=document.getElementById("printBtn"), menu=document.getElementById("printMenu");
+  btn.addEventListener("click",e=>{ e.stopPropagation(); menu.classList.toggle("open"); });
+  document.addEventListener("click",e=>{ if(!e.target.closest(".print-fab-wrap")) menu.classList.remove("open"); });
+  menu.querySelectorAll("button").forEach(b=>{
+    b.addEventListener("click",()=>{
+      menu.classList.remove("open");
+      if(b.dataset.mode==="checklist"){ document.body.classList.add("print-checklist-only"); }
+      else { document.querySelectorAll(".day").forEach(d=>d.classList.add("open")); }
+      setTimeout(()=>window.print(),60);
+    });
+  });
+  window.addEventListener("afterprint",()=>document.body.classList.remove("print-checklist-only"));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Italy Family Trip · September 2027</name>
+    <description>Florence, Tuscany &amp; Rome. Restaurants, museums, wineries and markets.</description>
+    <Style id="sight"><IconStyle><color>ff786d3f</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="food"><IconStyle><color>ff3353bf</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="winery"><IconStyle><color>ff37276b</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="bar"><IconStyle><color>ff436b5f</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="gelato"><IconStyle><color>ff3e9ac7</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="market"><IconStyle><color>ff33629c</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="cooking"><IconStyle><color>ff9c4f8a</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Folder>
+      <name>Florence</name>
+      <Placemark>
+        <name>Uffizi Gallery</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.255801,43.768313,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Galleria dell'Accademia (David)</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.258758,43.776917,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Duomo (Florence Cathedral)</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.256574,43.773102,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Boboli Gardens</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.249899,43.763278,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazzale Michelangelo</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.264993,43.762828,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Giardino Bardini</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.257128,43.764212,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Ponte Vecchio</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.253158,43.768025,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza della Signoria</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.255864,43.769574,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza della Repubblica</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.254011,43.771519,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza Santissima Annunziata</name>
+        <description>Sight · Florence</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.260598,43.776455,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>San Lorenzo Market</name>
+        <description>Market · Florence</description>
+        <styleUrl>#market</styleUrl>
+        <Point><coordinates>11.253209,43.776585,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Mercato Centrale</name>
+        <description>Market · Florence</description>
+        <styleUrl>#market</styleUrl>
+        <Point><coordinates>11.252173,43.776915,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Mercato di Sant'Ambrogio</name>
+        <description>Market · Florence</description>
+        <styleUrl>#market</styleUrl>
+        <Point><coordinates>11.266782,43.770482,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Buca Mario</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.249164,43.772332,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Cantinetta Verrazzano</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.255659,43.770897,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>'ino</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.254853,43.768426,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Il Santo Bevitore</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.24676,43.769037,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>All'Antico Ristoro di Cambi</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.242041,43.77042,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Buca dell'Orafo</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.254021,43.76844,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>All'Antico Vinaio</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.257396,43.768407,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Trattoria Mario</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.254545,43.776567,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>S. Forno</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.245643,43.767747,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Cammillo</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.250016,43.768109,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Il Guscio</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.240446,43.769075,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Osteria del Cinghiale Bianco</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.54603,44.112783,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Dalla Lola</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.242188,43.768082,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Nugolo</name>
+        <description>Food · Florence</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.260358,43.770882,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Mama Florence (cooking school)</name>
+        <description>Cooking School · Florence</description>
+        <styleUrl>#cooking</styleUrl>
+        <Point><coordinates>11.240618,43.766078,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>In Tavola (cooking school)</name>
+        <description>Cooking School · Florence</description>
+        <styleUrl>#cooking</styleUrl>
+        <Point><coordinates>11.25049,43.766594,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Tuscany</name>
+      <Placemark>
+        <name>Castello di Verrazzano</name>
+        <description>Winery · Tuscany</description>
+        <styleUrl>#winery</styleUrl>
+        <Point><coordinates>11.284605,43.601564,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Fattoria San Michele a Torri</name>
+        <description>Winery · Tuscany</description>
+        <styleUrl>#winery</styleUrl>
+        <Point><coordinates>11.129656,43.701999,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Salvadonica</name>
+        <description>Winery · Tuscany</description>
+        <styleUrl>#winery</styleUrl>
+        <Point><coordinates>11.218639,43.635765,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Casa Lucii</name>
+        <description>Winery · Tuscany</description>
+        <styleUrl>#winery</styleUrl>
+        <Point><coordinates>11.081379,43.503847,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Pietraserena</name>
+        <description>Winery · Tuscany</description>
+        <styleUrl>#winery</styleUrl>
+        <Point><coordinates>11.052916,43.47646,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Gelateria Dondoli</name>
+        <description>Gelato · Tuscany</description>
+        <styleUrl>#gelato</styleUrl>
+        <Point><coordinates>11.043331,43.467327,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Osteria Il Carroccio (Siena)</name>
+        <description>Food · Tuscany</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>11.331378,43.317497,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza del Campo (Siena)</name>
+        <description>Sight · Tuscany</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.331558,43.318439,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>San Gimignano</name>
+        <description>Sight · Tuscany</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>11.043211,43.467799,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+    <Folder>
+      <name>Rome</name>
+      <Placemark>
+        <name>Vatican Museums &amp; Sistine Chapel</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.454662,41.904961,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>St. Peter's Basilica</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.45371,41.902157,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Colosseum</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.491903,41.890942,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Roman Forum &amp; Palatine Hill</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.48673,41.891641,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Galleria Borghese</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.492105,41.914113,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Villa Borghese / Bioparco</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.486773,41.917599,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Pantheon</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.476833,41.898616,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza Navona</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.473118,41.898928,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Trevi Fountain</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.483285,41.900978,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Jewish Ghetto</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.478571,41.89252,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Villa Torlonia</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.511624,41.913643,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Museo della Forma Urbis</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.490861,41.886668,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Santa Maria del Popolo</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.476546,41.911473,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Villa Farnesina</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.467333,41.893628,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza Santa Maria in Trastevere</name>
+        <description>Sight · Rome</description>
+        <styleUrl>#sight</styleUrl>
+        <Point><coordinates>12.470508,41.889564,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Latteria Trastevere</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.469721,41.891505,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Trapizzino</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.473764,41.879711,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>La Gensola</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.476431,41.889388,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Fior di Luna</name>
+        <description>Gelato · Rome</description>
+        <styleUrl>#gelato</styleUrl>
+        <Point><coordinates>12.472643,41.889607,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Jerry Thomas Bar Room</name>
+        <description>Bar · Rome</description>
+        <styleUrl>#bar</styleUrl>
+        <Point><coordinates>12.467919,41.897847,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Supplì Roma</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.471738,41.887137,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>La Tavernaccia</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.468631,41.874097,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Freni e Frizioni</name>
+        <description>Bar · Rome</description>
+        <styleUrl>#bar</styleUrl>
+        <Point><coordinates>12.470669,41.891284,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Enoteca Antidoto</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.461346,41.918091,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Ristorante Il Ciak</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.46953,41.89098,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Otaleg!</name>
+        <description>Gelato · Rome</description>
+        <styleUrl>#gelato</styleUrl>
+        <Point><coordinates>12.470463,41.888174,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Armando al Pantheon</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.476199,41.89906,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Nonna Betta</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.478118,41.892754,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Forma e Dispensa</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.479318,41.874473,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Fatamorgana</name>
+        <description>Gelato · Rome</description>
+        <styleUrl>#gelato</styleUrl>
+        <Point><coordinates>12.469195,41.886502,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Marita</name>
+        <description>Food · Rome</description>
+        <styleUrl>#food</styleUrl>
+        <Point><coordinates>12.517229,41.910534,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Les Vignerons</name>
+        <description>Bar · Rome</description>
+        <styleUrl>#bar</styleUrl>
+        <Point><coordinates>12.468586,41.886317,0</coordinates></Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>
