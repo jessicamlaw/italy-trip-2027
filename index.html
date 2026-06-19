@@ -812,6 +812,9 @@ const LINK_MAP = {
   "Mercato Centrale":"https://mercatocentrale.it/firenze",
   "Duomo":"https://duomo.firenze.it",
   "Buca Mario":"https://www.bucamario.com",
+  "'ino":"https://inofirenze.com",
+  "S. Forno":"https://www.google.com/search?q=S.Forno+bakery+Firenze",
+  "Trattoria Mario":"https://www.google.com/search?q=Trattoria+Mario+Firenze",
   "Cantinetta Verrazzano":"https://verrazzano.com/en/the-cantinetta-in-florence",
   "Il Santo Bevitore":"https://ilsantobevitore.com",
   "All'Antico Ristoro di Cambi":"https://anticoristorodicambi.it",
@@ -843,7 +846,9 @@ const LINK_MAP = {
   "Otaleg":"https://otaleg.com",
   "Armando al Pantheon":"https://armandoalpantheon.it",
   "Nonna Betta":"https://nonnabetta.it",
-  "Freni e Frizioni":"https://freniefrizioni.com"
+  "Freni e Frizioni":"https://freniefrizioni.com",
+  "Latteria Trastevere":"https://www.google.com/search?q=Latteria+Trastevere+Roma",
+  "Fatamorgana":"https://www.gelateriafatamorgana.com"
 };
 const LINK_KEYS = Object.keys(LINK_MAP).sort((a,b)=>b.length-a.length);
 const LINK_RE = new RegExp("("+LINK_KEYS.map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}).join("|")+")","g");
