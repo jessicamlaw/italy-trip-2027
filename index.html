@@ -775,10 +775,10 @@ const itinerary = [
    {cat:"culture",label:"Culture & History",text:"Morning: Colosseum, Roman Forum & Palatine Hill (combined ticket), €18/pp (~$20), ticketing.colosseo.it. Afternoon: Galleria Borghese, Bernini sculptures and Caravaggio paintings. Strict 2-hour timed entry, book months ahead. €15/pp (~$17)."},
    {cat:"kids",label:"Kids & Relaxed",text:"The Colosseum is surprisingly good with kids. The Galleria Borghese has a strict 2-hour limit, so split: adults do the gallery while kids enjoy Villa Borghese park outside with one parent, rowboats, bike rentals, a small zoo (Bioparco €16/pp, ~$18), and open space. Reunite after."},
    {cat:"culture",label:"NYT Picks",items:[
-     {n:"Museo della Forma Urbis (new)",d:"A floor embossed with an 18th-century illustrated map of Rome alongside 3rd-century stone slabs. Short walk from the Colosseum, worth adding before your Forum visit.",p:"€11/pp (~$12) · museoformaurbs.it"},
+     {n:"Museo della Forma Urbis (new)",d:"A floor embossed with an 18th-century illustrated map of Rome alongside 3rd-century stone slabs. Short walk from the Colosseum, worth adding before your Forum visit.",p:"€11/pp (~$12) · museiincomuneroma.it"},
      {n:"Domus Tiberiana / Palatine Hill",d:"Reopened 2023 after decades of closure. Multimedia exhibitions, prime sunset views over the Forum. Already included in your Colosseum combined ticket.",p:""}]},
    {cat:"food",label:"Food · Katie Parla Picks",items:[
-     {n:"Enoteca Antidoto",d:"Some of the most exciting contemporary cuisine in Rome, per Katie Parla. Dinner after the Borghese.",p:"Dinner ~€50–70/pp (~$55–77) · enotecaantidoto.it"},
+     {n:"Enoteca Antidoto",d:"Some of the most exciting contemporary cuisine in Rome, per Katie Parla. Dinner after the Borghese.",p:"Dinner ~€50–70/pp (~$55–77)"},
      {n:"Ristorante Il Ciak",d:"Her pick for a proper steak.",p:"Dinner ~€45–60/pp (~$50–66)"},
      {n:"Otaleg!",d:"Incredible gelato in Trastevere (NYT + Katie Parla endorsed).",p:"€3–4/pp (~$3–4) · otaleg.com"}]}
  ]},
@@ -1038,23 +1038,23 @@ const links = [
    ["Museum","Uffizi Gallery","tickets.uffizi.it"],
    ["Museum","Galleria dell'Accademia · David","galleriaaccademiafirenze.it/en/tickets"],
    ["Museum","Boboli Gardens","uffizi.it/en/tickets"],
-   ["Museum","Duomo Florence · dome climb","museumflorence.com"]]},
+   ["Museum","Duomo Florence · dome climb","duomo.firenze.it"]]},
  {cat:"Florence · Restaurants & Food",items:[
    ["Food","All'Antico Vinaio · legendary sandwiches","allanticovinaio.com"],
    ["Food","Cantinetta Verrazzano · breakfast & wine","verrazzano.com/en/the-cantinetta-in-florence"],
    ["Food","Il Santo Bevitore · Oltrarno dinner","ilsantobevitore.com"],
    ["Food","All'Antico Ristoro di Cambi","anticoristorodicambi.it"],
    ["Food","Mercato Centrale · food hall","mercatocentrale.it/firenze"],
-   ["Food","Cammillo · Katie Parla top pick","trattoriacammillo.it"],
+   ["Food","Cammillo · Katie Parla top pick","http://cammillo.it"],
    ["Food","Buca dell'Orafo · Katie Parla pick","bucadellorafo.com"],
-   ["Food","Il Guscio · seafood, San Frediano","ilguscio.it"],
+   ["Food","Il Guscio · seafood, San Frediano","ilguscio.com"],
    ["Food","Osteria del Cinghiale Bianco · Stanley Tucci pick","cinghialebianco.net"]]},
  {cat:"Tuscany · Wineries & Transport",items:[
    ["Winery","Castello di Verrazzano · Chianti","verrazzano.com"],
-   ["Winery","Fattoria San Michele a Torri","fattoriasanmicheleatorri.it"],
+   ["Winery","Fattoria San Michele a Torri","http://fattoriasanmicheleatorri.it"],
    ["Winery","Salvadonica · vineyard picnic","salvadonica.it"],
    ["Winery","Casa Lucii · family winery","casalucii.it"],
-   ["Food","Gelateria Dondoli · San Gimignano","gelateria-dondoli.com"],
+   ["Food","Gelateria Dondoli · San Gimignano","gelateriadipiazza.com"],
    ["Train","Trenitalia · Florence to Rome","trenitalia.com"]]},
  {cat:"Rome · Museums & Sites",items:[
    ["Museum","Vatican Museums & Sistine Chapel","tickets.museivaticani.va"],
@@ -1062,18 +1062,18 @@ const links = [
    ["Museum","Galleria Borghese","borghese.gallery/tickets"],
    ["Museum","Pantheon","pantheonroma.com"],
    ["Museum","Villa Torlonia","museivillatorlonia.it"],
-   ["Museum","Museo della Forma Urbis","museoformaurbs.it"]]},
+   ["Museum","Museo della Forma Urbis","museiincomuneroma.it"]]},
  {cat:"Rome · Restaurants, Bars & Gelato",items:[
    ["Food","Armando al Pantheon","armandoalpantheon.it"],
    ["Food","Trapizzino · Trastevere","trapizzino.it"],
-   ["Food","La Gensola · Roman & Sicilian","ristorantelagensola.it"],
+   ["Food","La Gensola · Roman & Sicilian","http://lagensola.it"],
    ["Food","Nonna Betta · fried artichokes","nonnabetta.it"],
    ["Food","Supplì Roma","suppliroma.it"],
    ["Food","La Tavernaccia Roma","latavernacciaroma.com"],
-   ["Food","Enoteca Antidoto","enotecaantidoto.it"],
-   ["Food","Fior di Luna · gelato","fiordilunagelato.it"],
+   ["Food","Enoteca Antidoto","https://www.google.com/search?q=Enoteca+Antidoto+Roma"],
+   ["Food","Fior di Luna · gelato","fiordiluna.com"],
    ["Food","Otaleg! · gelato","otaleg.com"],
-   ["Food","Marita · pizza by Roberta Esposito","maritaroma.it"],
+   ["Food","Marita · pizza by Roberta Esposito","https://www.google.com/search?q=Marita+pizzeria+Roma+Roberta+Esposito"],
    ["Bar","Jerry Thomas Bar Room","jerrythomasproject.it"],
    ["Bar","Freni e Frizioni","freniefrizioni.com"]]}
 ];
@@ -1081,7 +1081,7 @@ document.getElementById("links-wrap").innerHTML = links.map(g=>`
   <div class="link-cat">
     <h3>${g.cat}</h3>
     <div class="link-grid">
-      ${g.items.map(i=>`<a class="link-item" href="https://${i[2]}" target="_blank" rel="noopener"><span class="kind">${i[0]}</span><span class="nm">${i[1]}</span><span class="url">${i[2]}</span></a>`).join("")}
+      ${g.items.map(i=>{const raw=i[2];const href=/^https?:\/\//.test(raw)?raw:"https://"+raw;const label=href.indexOf("google.com/search")>-1?"Search online ↗":raw.replace(/^https?:\/\//,"");return `<a class="link-item" href="${href}" target="_blank" rel="noopener"><span class="kind">${i[0]}</span><span class="nm">${i[1]}</span><span class="url">${label}</span></a>`;}).join("")}
     </div>
   </div>`).join("");
 
