@@ -863,6 +863,24 @@ function linkify(text){
   });
 }
 
+// Checklist links: place bookings (reused) plus passport / ETIAS sites
+const CHECK_MAP = Object.assign({
+  "travel.state.gov":"https://travel.state.gov",
+  "canada.ca":"https://www.canada.ca/en/immigration-refugees-citizenship/services/canadian-passports.html",
+  "travel-europe.europa.eu":"https://travel-europe.europa.eu/etias_en"
+}, LINK_MAP);
+const CHECK_KEYS = Object.keys(CHECK_MAP).sort((a,b)=>b.length-a.length);
+const CHECK_RE = new RegExp("("+CHECK_KEYS.map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}).join("|")+")","g");
+function linkifyCheck(text){
+  if(!text) return text;
+  var used={};
+  return text.replace(CHECK_RE, function(m){
+    if(used[m]) return m;
+    used[m]=1;
+    return '<a class="itin-link" href="'+CHECK_MAP[m]+'" target="_blank" rel="noopener">'+m+'</a>';
+  });
+}
+
 function dayHTML(day){
   const cats = new Set(day.blocks.map(b=>b.cat));
   const classes = ["day"];
@@ -990,7 +1008,7 @@ const checklist = [
 document.getElementById("checklist").innerHTML = checklist.map((p,pi)=>`
   <div class="panel">
     <h3>${p.h}</h3>
-    ${p.items.map((i,ii)=>`<div class="check checkable" data-key="chk-${pi}-${ii}"><div class="box"></div><div class="txt">${i.t}</div><span class="tag ${i.cls}">${i.tag}</span></div>`).join("")}
+    ${p.items.map((i,ii)=>`<div class="check checkable" data-key="chk-${pi}-${ii}"><div class="box"></div><div class="txt">${linkifyCheck(i.t)}</div><span class="tag ${i.cls}">${i.tag}</span></div>`).join("")}
   </div>`).join("");
 
 // PACKING
