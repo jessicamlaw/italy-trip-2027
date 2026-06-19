@@ -299,6 +299,23 @@
   .print-menu button+button{border-top:1px solid var(--line)}
   .print-menu small{display:block;font-weight:400;color:var(--muted);font-size:.74rem;margin-top:2px}
 
+  /* PASSWORD GATE */
+  html.gate-locked{overflow:hidden}
+  #gate{display:none;position:fixed;inset:0;z-index:10000;padding:22px;
+    background:linear-gradient(135deg,#c96a3f 0%,#a8432a 45%,#6b2737 100%);
+    align-items:center;justify-content:center}
+  .gate-box{background:var(--paper);border-radius:20px;box-shadow:0 30px 70px -30px rgba(0,0,0,.6);padding:38px 32px;max-width:380px;width:100%;text-align:center}
+  .gate-flag{font-size:2.4rem}
+  .gate-box h1{font-family:'Playfair Display',serif;color:var(--wine);font-size:2rem;margin:6px 0 4px}
+  .gate-box p{color:var(--muted);font-size:.92rem;margin-bottom:18px}
+  #gate-form{display:flex;flex-direction:column;gap:10px}
+  #gate-input{font-family:inherit;font-size:1rem;padding:12px 14px;border:1px solid var(--line);border-radius:10px;text-align:center}
+  #gate-input:focus{outline:none;border-color:var(--terracotta)}
+  #gate-form button{font-family:inherit;font-weight:700;font-size:.95rem;cursor:pointer;border:none;background:var(--terracotta);color:#fff;padding:12px;border-radius:10px}
+  #gate-form button:hover{background:var(--terracotta-dark)}
+  #gate-err{color:#a8341b;font-size:.85rem;font-weight:600;margin-top:10px;visibility:hidden}
+  #gate-err.show{visibility:visible}
+
   @media print{
     *{-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important}
     html{scroll-padding-top:0}
@@ -319,6 +336,48 @@
 </style>
 </head>
 <body data-filter="all">
+
+<div id="gate">
+  <div class="gate-box">
+    <div class="gate-flag">🇮🇹</div>
+    <h1>Our Italy Trip</h1>
+    <p>This page is just for family. Please enter the password to continue.</p>
+    <form id="gate-form">
+      <input id="gate-input" type="password" placeholder="Password" autocomplete="current-password">
+      <button type="submit">Enter</button>
+    </form>
+    <div id="gate-err">That's not it, give it another try.</div>
+  </div>
+</div>
+<script>
+(function(){
+  var HASH="53cea836907111292d2fb546befd741af120119b6c4f85c7cf804d56763d4eff";
+  var gate=document.getElementById("gate");
+  if(localStorage.getItem("italyUnlocked")==="1") return;
+  gate.style.display="flex";
+  document.documentElement.classList.add("gate-locked");
+  var form=document.getElementById("gate-form"),
+      input=document.getElementById("gate-input"),
+      err=document.getElementById("gate-err");
+  async function sha256(s){
+    var buf=await crypto.subtle.digest("SHA-256", new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+  }
+  form.addEventListener("submit", async function(e){
+    e.preventDefault();
+    var h=await sha256(input.value.trim());
+    if(h===HASH){
+      localStorage.setItem("italyUnlocked","1");
+      gate.style.display="none";
+      document.documentElement.classList.remove("gate-locked");
+    } else {
+      err.classList.add("show"); input.value=""; input.focus();
+    }
+  });
+  input.focus();
+})();
+</script>
+
 
 <nav>
   <div class="nav-inner">
