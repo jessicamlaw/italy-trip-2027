@@ -133,6 +133,8 @@
   .food-item{padding:9px 0;border-bottom:1px dashed var(--line)}
   .food-item:last-child{border-bottom:none}
   .food-item .fn{font-weight:700;color:var(--ink)}
+  .itin-link{color:var(--terracotta-dark);text-decoration:underline;text-decoration-color:rgba(191,83,51,.45);text-underline-offset:2px;font-weight:inherit}
+  .itin-link:hover{text-decoration-color:var(--terracotta)}
   .food-item .fd{color:var(--muted);font-size:.9rem}
   .food-item .fp{display:inline-block;margin-top:3px;font-size:.82rem;font-weight:600;color:var(--olive);background:#eef1e6;padding:2px 9px;border-radius:6px}
 
@@ -800,6 +802,60 @@ const itinerary = [
  ]}
 ];
 
+// Map place names (as written in the itinerary) to their booking links
+const LINK_MAP = {
+  "Uffizi Gallery":"https://tickets.uffizi.it",
+  "Uffizi":"https://tickets.uffizi.it",
+  "Accademia Gallery":"https://galleriaaccademiafirenze.it/en/tickets",
+  "Accademia":"https://galleriaaccademiafirenze.it/en/tickets",
+  "Boboli Gardens":"https://uffizi.it/en/tickets",
+  "Mercato Centrale":"https://mercatocentrale.it/firenze",
+  "Duomo":"https://duomo.firenze.it",
+  "Cantinetta Verrazzano":"https://verrazzano.com/en/the-cantinetta-in-florence",
+  "Il Santo Bevitore":"https://ilsantobevitore.com",
+  "All'Antico Ristoro di Cambi":"https://anticoristorodicambi.it",
+  "Buca dell'Orafo":"https://bucadellorafo.it",
+  "All'Antico Vinaio":"https://allanticovinaio.com",
+  "Cammillo":"https://www.google.com/search?q=Trattoria+Cammillo+Firenze",
+  "Il Guscio":"https://www.google.com/search?q=Il+Guscio+ristorante+Firenze+San+Frediano",
+  "Castello di Verrazzano":"https://verrazzano.com",
+  "Fattoria San Michele a Torri":"https://www.google.com/search?q=Fattoria+San+Michele+a+Torri",
+  "Salvadonica":"https://salvadonica.it",
+  "Casa Lucii":"https://casalucii.it",
+  "Gelateria Dondoli":"https://gelateriadipiazza.com",
+  "Vatican Museums & Sistine Chapel":"https://tickets.museivaticani.va",
+  "Vatican Museums":"https://tickets.museivaticani.va",
+  "Colosseum":"https://ticketing.colosseo.it",
+  "Roman Forum & Palatine Hill":"https://ticketing.colosseo.it",
+  "Galleria Borghese":"https://borghese.gallery/tickets",
+  "Pantheon":"https://pantheonroma.com",
+  "Villa Torlonia":"https://museivillatorlonia.it",
+  "Museo della Forma Urbis":"https://www.google.com/search?q=Museo+della+Forma+Urbis+Roma",
+  "Trapizzino":"https://trapizzino.it",
+  "La Gensola":"https://www.google.com/search?q=La+Gensola+Trastevere+Roma",
+  "Fior di Luna":"https://fiordiluna.com",
+  "Jerry Thomas Bar Room":"https://www.thejerrythomasproject.it/en/speakeasy/",
+  "Supplì Roma":"https://suppliroma.it",
+  "Supplì":"https://suppliroma.it",
+  "La Tavernaccia":"https://latavernacciaroma.com",
+  "Enoteca Antidoto":"https://www.enotecalantidoto.com",
+  "Otaleg":"https://otaleg.com",
+  "Armando al Pantheon":"https://armandoalpantheon.it",
+  "Nonna Betta":"https://nonnabetta.it",
+  "Freni e Frizioni":"https://freniefrizioni.com"
+};
+const LINK_KEYS = Object.keys(LINK_MAP).sort((a,b)=>b.length-a.length);
+const LINK_RE = new RegExp("("+LINK_KEYS.map(function(k){return k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}).join("|")+")","g");
+function linkify(text){
+  if(!text) return text;
+  var used={};
+  return text.replace(LINK_RE, function(m){
+    if(used[m]) return m;
+    used[m]=1;
+    return '<a class="itin-link" href="'+LINK_MAP[m]+'" target="_blank" rel="noopener">'+m+'</a>';
+  });
+}
+
 function dayHTML(day){
   const cats = new Set(day.blocks.map(b=>b.cat));
   const classes = ["day"];
@@ -809,9 +865,9 @@ function dayHTML(day){
   let blocks = day.blocks.map(b=>{
     let inner;
     if(b.items){
-      inner = b.items.map(it=>`<div class="food-item"><div class="fn">${it.n}</div>${it.d?`<div class="fd">${it.d}</div>`:""}${it.p?`<span class="fp">${it.p}</span>`:""}</div>`).join("");
+      inner = b.items.map(it=>`<div class="food-item"><div class="fn">${linkify(it.n)}</div>${it.d?`<div class="fd">${it.d}</div>`:""}${it.p?`<span class="fp">${it.p}</span>`:""}</div>`).join("");
     } else {
-      inner = `<p>${b.text}</p>`;
+      inner = `<p>${linkify(b.text)}</p>`;
     }
     return `<div class="block cat-${b.cat}"><span class="block-label">${b.label}</span>${inner}</div>`;
   }).join("");
