@@ -556,6 +556,7 @@
       <span><i style="background:#c79a3e"></i>Gelato</span>
       <span><i style="background:#9c6233"></i>Markets</span>
       <span><i style="background:#8a4f9c"></i>Cooking</span>
+      <span><i style="background:#3f8f57"></i>Parks</span>
     </div>
     <div class="map-dl">📍 Want it offline with turn-by-turn navigation? Import <b>italy-map.kml</b> into Google My Maps (mymaps.google.com → Create a new map → Import), then open it in the Google Maps app and download the area for offline use. Easy to share with the whole family.</div>
   </div>
@@ -1274,9 +1275,9 @@ const places = /*PLACES_DATA*/[
   {n:"Uffizi Gallery",c:"Florence",cat:"sight",lat:43.768313,lng:11.255801,q:"Uffizi Gallery, Firenze, Italy"},
   {n:"Galleria dell'Accademia (David)",c:"Florence",cat:"sight",lat:43.776917,lng:11.258758,q:"Galleria dell'Accademia (David), Firenze, Italy"},
   {n:"Duomo (Florence Cathedral)",c:"Florence",cat:"sight",lat:43.773102,lng:11.256574,q:"Duomo (Florence Cathedral), Firenze, Italy"},
-  {n:"Boboli Gardens",c:"Florence",cat:"sight",lat:43.763278,lng:11.249899,q:"Boboli Gardens, Firenze, Italy"},
+  {n:"Boboli Gardens",c:"Florence",cat:"park",lat:43.763278,lng:11.249899,q:"Boboli Gardens, Firenze, Italy"},
   {n:"Piazzale Michelangelo",c:"Florence",cat:"sight",lat:43.762828,lng:11.264993,q:"Piazzale Michelangelo, Firenze, Italy"},
-  {n:"Giardino Bardini",c:"Florence",cat:"sight",lat:43.764212,lng:11.257128,q:"Giardino Bardini, Firenze, Italy"},
+  {n:"Giardino Bardini",c:"Florence",cat:"park",lat:43.764212,lng:11.257128,q:"Giardino Bardini, Firenze, Italy"},
   {n:"Ponte Vecchio",c:"Florence",cat:"sight",lat:43.768025,lng:11.253158,q:"Ponte Vecchio, Firenze, Italy"},
   {n:"Piazza della Signoria",c:"Florence",cat:"sight",lat:43.769574,lng:11.255864,q:"Piazza della Signoria, Firenze, Italy"},
   {n:"Piazza della Repubblica",c:"Florence",cat:"sight",lat:43.771519,lng:11.254011,q:"Piazza della Repubblica, Firenze, Italy"},
@@ -1314,12 +1315,12 @@ const places = /*PLACES_DATA*/[
   {n:"Colosseum",c:"Rome",cat:"sight",lat:41.890942,lng:12.491903,q:"Colosseum, Roma, Italy"},
   {n:"Roman Forum & Palatine Hill",c:"Rome",cat:"sight",lat:41.891641,lng:12.48673,q:"Roman Forum & Palatine Hill, Roma, Italy"},
   {n:"Galleria Borghese",c:"Rome",cat:"sight",lat:41.914113,lng:12.492105,q:"Galleria Borghese, Roma, Italy"},
-  {n:"Villa Borghese / Bioparco",c:"Rome",cat:"sight",lat:41.917599,lng:12.486773,q:"Villa Borghese / Bioparco, Roma, Italy"},
+  {n:"Villa Borghese / Bioparco",c:"Rome",cat:"park",lat:41.917599,lng:12.486773,q:"Villa Borghese / Bioparco, Roma, Italy"},
   {n:"Pantheon",c:"Rome",cat:"sight",lat:41.898616,lng:12.476833,q:"Pantheon, Roma, Italy"},
   {n:"Piazza Navona",c:"Rome",cat:"sight",lat:41.898928,lng:12.473118,q:"Piazza Navona, Roma, Italy"},
   {n:"Trevi Fountain",c:"Rome",cat:"sight",lat:41.900978,lng:12.483285,q:"Trevi Fountain, Roma, Italy"},
   {n:"Jewish Ghetto",c:"Rome",cat:"sight",lat:41.89252,lng:12.478571,q:"Jewish Ghetto, Roma, Italy"},
-  {n:"Villa Torlonia",c:"Rome",cat:"sight",lat:41.913643,lng:12.511624,q:"Villa Torlonia, Roma, Italy"},
+  {n:"Villa Torlonia",c:"Rome",cat:"park",lat:41.913643,lng:12.511624,q:"Villa Torlonia, Roma, Italy"},
   {n:"Museo della Forma Urbis",c:"Rome",cat:"sight",lat:41.886668,lng:12.490861,q:"Museo della Forma Urbis, Roma, Italy"},
   {n:"Santa Maria del Popolo",c:"Rome",cat:"sight",lat:41.911473,lng:12.476546,q:"Santa Maria del Popolo, Roma, Italy"},
   {n:"Villa Farnesina",c:"Rome",cat:"sight",lat:41.893628,lng:12.467333,q:"Villa Farnesina, Roma, Italy"},
@@ -1340,11 +1341,19 @@ const places = /*PLACES_DATA*/[
   {n:"Forma e Dispensa",c:"Rome",cat:"food",lat:41.874473,lng:12.479318,q:"Forma e Dispensa, Roma, Italy"},
   {n:"Fatamorgana",c:"Rome",cat:"gelato",lat:41.886502,lng:12.469195,q:"Fatamorgana, Roma, Italy"},
   {n:"Marita",c:"Rome",cat:"food",lat:41.910534,lng:12.517229,q:"Marita, Roma, Italy"},
-  {n:"Les Vignerons",c:"Rome",cat:"bar",lat:41.886317,lng:12.468586,q:"Les Vignerons, Roma, Italy"}
+  {n:"Les Vignerons",c:"Rome",cat:"bar",lat:41.886317,lng:12.468586,q:"Les Vignerons, Roma, Italy"},
+  {n:"Giardino dell'Orticoltura",c:"Florence",cat:"park",lat:43.787232,lng:11.260999,q:"Giardino dell'Orticoltura, Firenze, Italy"},
+  {n:"Parco delle Cascine",c:"Florence",cat:"park",lat:43.782931,lng:11.215493,q:"Parco delle Cascine, Firenze, Italy"},
+  {n:"Piazza d'Azeglio",c:"Florence",cat:"park",lat:43.774395,lng:11.267709,q:"Piazza d'Azeglio, Firenze, Italy"},
+  {n:"Giardino delle Rose",c:"Florence",cat:"park",lat:43.762988,lng:11.262945,q:"Giardino delle Rose, Firenze, Italy"},
+  {n:"Villa Doria Pamphilj",c:"Rome",cat:"park",lat:41.884328,lng:12.44776,q:"Villa Doria Pamphilj, Roma, Italy"},
+  {n:"Villa Celimontana",c:"Rome",cat:"park",lat:41.884486,lng:12.493725,q:"Villa Celimontana, Roma, Italy"},
+  {n:"Giardino degli Aranci",c:"Rome",cat:"park",lat:41.884926,lng:12.480451,q:"Giardino degli Aranci, Roma, Italy"},
+  {n:"Villa Ada",c:"Rome",cat:"park",lat:41.93193,lng:12.502252,q:"Villa Ada, Roma, Italy"}
 ];
 (function(){
   if(typeof L==="undefined"||!document.getElementById("leafletmap")) return;
-  const CAT={sight:["Sights","#3f6d78"],food:["Food","#bf5333"],winery:["Wineries","#6b2737"],bar:["Bars","#5f6b43"],gelato:["Gelato","#c79a3e"],market:["Markets","#9c6233"],cooking:["Cooking","#8a4f9c"]};
+  const CAT={sight:["Sights","#3f6d78"],food:["Food","#bf5333"],winery:["Wineries","#6b2737"],bar:["Bars","#5f6b43"],gelato:["Gelato","#c79a3e"],market:["Markets","#9c6233"],cooking:["Cooking","#8a4f9c"],park:["Parks","#3f8f57"]};
   const map=L.map("leafletmap",{scrollWheelZoom:false}).setView([43.77,11.25],13);
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",{maxZoom:19,attribution:"© OpenStreetMap contributors"}).addTo(map);
   const groups={Florence:L.layerGroup(),Tuscany:L.layerGroup(),Rome:L.layerGroup()};

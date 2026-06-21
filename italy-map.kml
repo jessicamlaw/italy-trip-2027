@@ -2,7 +2,7 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
   <Document>
     <name>Italy Family Trip · September 2027</name>
-    <description>Florence, Tuscany &amp; Rome. Restaurants, museums, wineries and markets.</description>
+    <description>Florence, Tuscany &amp; Rome. Restaurants, museums, wineries, parks and markets.</description>
     <Style id="sight"><IconStyle><color>ff786d3f</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
     <Style id="food"><IconStyle><color>ff3353bf</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
     <Style id="winery"><IconStyle><color>ff37276b</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
@@ -10,6 +10,7 @@
     <Style id="gelato"><IconStyle><color>ff3e9ac7</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
     <Style id="market"><IconStyle><color>ff33629c</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
     <Style id="cooking"><IconStyle><color>ff9c4f8a</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
+    <Style id="park"><IconStyle><color>ff578f3f</color><scale>1.1</scale><Icon><href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href></Icon></IconStyle></Style>
     <Folder>
       <name>Florence</name>
       <Placemark>
@@ -32,8 +33,8 @@
       </Placemark>
       <Placemark>
         <name>Boboli Gardens</name>
-        <description>Sight · Florence</description>
-        <styleUrl>#sight</styleUrl>
+        <description>Park · Florence</description>
+        <styleUrl>#park</styleUrl>
         <Point><coordinates>11.249899,43.763278,0</coordinates></Point>
       </Placemark>
       <Placemark>
@@ -44,8 +45,8 @@
       </Placemark>
       <Placemark>
         <name>Giardino Bardini</name>
-        <description>Sight · Florence</description>
-        <styleUrl>#sight</styleUrl>
+        <description>Park · Florence</description>
+        <styleUrl>#park</styleUrl>
         <Point><coordinates>11.257128,43.764212,0</coordinates></Point>
       </Placemark>
       <Placemark>
@@ -186,6 +187,30 @@
         <styleUrl>#cooking</styleUrl>
         <Point><coordinates>11.25049,43.766594,0</coordinates></Point>
       </Placemark>
+      <Placemark>
+        <name>Giardino dell'Orticoltura</name>
+        <description>Park · Florence</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>11.260999,43.787232,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Parco delle Cascine</name>
+        <description>Park · Florence</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>11.215493,43.782931,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Piazza d'Azeglio</name>
+        <description>Park · Florence</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>11.267709,43.774395,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Giardino delle Rose</name>
+        <description>Park · Florence</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>11.262945,43.762988,0</coordinates></Point>
+      </Placemark>
     </Folder>
     <Folder>
       <name>Tuscany</name>
@@ -278,8 +303,8 @@
       </Placemark>
       <Placemark>
         <name>Villa Borghese / Bioparco</name>
-        <description>Sight · Rome</description>
-        <styleUrl>#sight</styleUrl>
+        <description>Park · Rome</description>
+        <styleUrl>#park</styleUrl>
         <Point><coordinates>12.486773,41.917599,0</coordinates></Point>
       </Placemark>
       <Placemark>
@@ -308,8 +333,8 @@
       </Placemark>
       <Placemark>
         <name>Villa Torlonia</name>
-        <description>Sight · Rome</description>
-        <styleUrl>#sight</styleUrl>
+        <description>Park · Rome</description>
+        <styleUrl>#park</styleUrl>
         <Point><coordinates>12.511624,41.913643,0</coordinates></Point>
       </Placemark>
       <Placemark>
@@ -367,7 +392,7 @@
         <Point><coordinates>12.467919,41.897847,0</coordinates></Point>
       </Placemark>
       <Placemark>
-        <name>Supplì Roma</name>
+        <name>Suppl\u00ec Roma</name>
         <description>Food · Rome</description>
         <styleUrl>#food</styleUrl>
         <Point><coordinates>12.471738,41.887137,0</coordinates></Point>
@@ -437,6 +462,30 @@
         <description>Bar · Rome</description>
         <styleUrl>#bar</styleUrl>
         <Point><coordinates>12.468586,41.886317,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Villa Doria Pamphilj</name>
+        <description>Park · Rome</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>12.44776,41.884328,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Villa Celimontana</name>
+        <description>Park · Rome</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>12.493725,41.884486,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Giardino degli Aranci</name>
+        <description>Park · Rome</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>12.480451,41.884926,0</coordinates></Point>
+      </Placemark>
+      <Placemark>
+        <name>Villa Ada</name>
+        <description>Park · Rome</description>
+        <styleUrl>#park</styleUrl>
+        <Point><coordinates>12.502252,41.93193,0</coordinates></Point>
       </Placemark>
     </Folder>
   </Document>
