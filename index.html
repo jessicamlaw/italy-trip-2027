@@ -296,6 +296,19 @@
   .map-dl{text-align:center;margin-top:18px;font-size:.9rem;color:var(--muted);max-width:680px;margin-left:auto;margin-right:auto;background:rgba(199,154,62,.1);border-radius:12px;padding:14px 18px}
   @media(max-width:680px){#leafletmap{height:420px}}
 
+  /* PARKS */
+  .parks-city{margin-bottom:26px}
+  .parks-city > h3{font-size:1.5rem;color:var(--olive);margin-bottom:14px;padding-bottom:6px;border-bottom:2px dotted var(--line)}
+  .parks-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+  .park-card{display:block;text-decoration:none;background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;transition:.18s}
+  .park-card:hover{border-color:var(--terracotta);transform:translateY(-2px);box-shadow:var(--shadow)}
+  .park-name{font-family:'Playfair Display',serif;font-weight:700;color:var(--wine);font-size:1.1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .park-tag{font-family:'Inter';font-size:.62rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:6px}
+  .park-tag.free{background:#e2ecdd;color:var(--olive)}
+  .park-tag.paid{background:#f6e2da;color:var(--terracotta-dark)}
+  .park-card p{color:var(--muted);font-size:.88rem;margin:7px 0}
+  .park-map{font-size:.78rem;font-weight:600;color:var(--terracotta-dark)}
+
   /* PRINT / PDF EXPORT */
   .print-fab-wrap{position:fixed;right:18px;bottom:18px;z-index:90;display:flex;flex-direction:column;align-items:flex-end;gap:8px}
   .print-fab{font-family:inherit;font-weight:700;font-size:.88rem;cursor:pointer;border:none;background:var(--terracotta);color:#fff;padding:12px 18px;border-radius:999px;box-shadow:var(--shadow);display:flex;align-items:center;gap:7px}
@@ -394,6 +407,7 @@
       <a href="#overview">Overview</a>
       <a href="#itinerary">Itinerary</a>
       <a href="#map">Map</a>
+      <a href="#parks">Parks</a>
       <a href="#budget">Budget</a>
       <a href="#before">Before You Go</a>
       <a href="#packing">Packing</a>
@@ -544,6 +558,89 @@
       <span><i style="background:#8a4f9c"></i>Cooking</span>
     </div>
     <div class="map-dl">📍 Want it offline with turn-by-turn navigation? Import <b>italy-map.kml</b> into Google My Maps (mymaps.google.com → Create a new map → Import), then open it in the Google Maps app and download the area for offline use. Easy to share with the whole family.</div>
+  </div>
+</section>
+
+<!-- PARKS -->
+<section id="parks">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="eyebrow">For the Kids</div>
+      <h2>Parks &amp; Playgrounds</h2>
+      <p>Green spaces to let the girls run, climb, and burn off energy between museums and meals, with playgrounds, open lawns, and a few special extras in each city. Tap any park for directions.</p>
+    </div>
+
+    <div class="parks-city">
+      <h3>🌿 Florence</h3>
+      <div class="parks-grid">
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Giardino+dell%27Orticoltura+Firenze" target="_blank" rel="noopener">
+          <div class="park-name">Giardino dell'Orticoltura <span class="park-tag free">Free</span></div>
+          <p>A quiet neighbourhood garden with a playground, a grand Liberty-era greenhouse, and lawns. A local favourite, well away from the tourist crowds.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Parco+delle+Cascine+Firenze" target="_blank" rel="noopener">
+          <div class="park-name">Parco delle Cascine <span class="park-tag free">Free</span></div>
+          <p>Florence's largest park, stretching along the Arno. Big playgrounds, wide paths for scooters and bikes, shade, and plenty of room to run.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Giardino+di+Boboli+Firenze" target="_blank" rel="noopener">
+          <div class="park-name">Boboli Gardens <span class="park-tag paid">Ticketed</span></div>
+          <p>Sprawling Medici gardens behind the Pitti Palace: fountains, grottoes, statues, and endless space to roam. Already a Day 7 option in the itinerary.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Piazza+d%27Azeglio+Firenze" target="_blank" rel="noopener">
+          <div class="park-name">Piazza d'Azeglio <span class="park-tag free">Free</span></div>
+          <p>A leafy residential square with a fenced playground where Florentine families bring their kids. Central, shady, and easy.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Giardino+delle+Rose+Firenze" target="_blank" rel="noopener">
+          <div class="park-name">Giardino delle Rose <span class="park-tag free">Free</span></div>
+          <p>A terraced rose garden just below Piazzale Michelangelo, with open lawns, sculptures, and a gorgeous view over the city. Lovely for a picnic.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Giardino+Bardini+Firenze" target="_blank" rel="noopener">
+          <div class="park-name">Giardino Bardini <span class="park-tag paid">Ticketed</span></div>
+          <p>A peaceful terraced garden with a wisteria tunnel, fountains, and panoramic views. Calmer and less crowded than Boboli.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="parks-city">
+      <h3>🏛️ Rome</h3>
+      <div class="parks-grid">
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Villa+Borghese+Roma" target="_blank" rel="noopener">
+          <div class="park-name">Villa Borghese <span class="park-tag free">Free + extras</span></div>
+          <p>Rome's central park and the best for kids: rowboats on the lake, bike and pedal-cart rentals, the Bioparco zoo, a tiny cinema, and playgrounds.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Villa+Doria+Pamphilj+Roma" target="_blank" rel="noopener">
+          <div class="park-name">Villa Doria Pamphilj <span class="park-tag free">Free</span></div>
+          <p>Rome's largest park: huge open lawns, ponds, pine groves, and playgrounds, with long paths perfect for scooters and bikes. Wonderfully uncrowded.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Villa+Torlonia+Roma" target="_blank" rel="noopener">
+          <div class="park-name">Villa Torlonia <span class="park-tag free">Free + extras</span></div>
+          <p>An elegant park with a playground, the fairy-tale Casina delle Civette, and Technotown, a hands-on activity house for kids. The Vatican-day alternative.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Villa+Celimontana+Roma" target="_blank" rel="noopener">
+          <div class="park-name">Villa Celimontana <span class="park-tag free">Free</span></div>
+          <p>A peaceful park a few minutes from the Colosseum, with a playground and shady lawns. The perfect place to recover after the ruins.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Giardino+degli+Aranci+Roma" target="_blank" rel="noopener">
+          <div class="park-name">Giardino degli Aranci <span class="park-tag free">Free</span></div>
+          <p>The orange garden on the Aventine, with open space and one of the most beautiful views over Rome. The famous Aventine Keyhole is right next door.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+        <a class="park-card" href="https://www.google.com/maps/search/?api=1&query=Villa+Ada+Roma" target="_blank" rel="noopener">
+          <div class="park-name">Villa Ada <span class="park-tag free">Free</span></div>
+          <p>A large, wooded park with a lake, easy trails, and playgrounds. A favourite of Roman families and great for a relaxed half-day.</p>
+          <span class="park-map">Open in Maps ↗</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
