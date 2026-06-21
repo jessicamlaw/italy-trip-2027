@@ -176,7 +176,11 @@
   .budget-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
   .b-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
   .b-card h3{background:var(--olive);color:#fff;font-size:1.05rem;padding:13px 18px;display:flex;justify-content:space-between;align-items:center}
-  .b-card h3 .sub{font-family:'Inter';font-size:.82rem;font-weight:700;background:rgba(255,255,255,.18);padding:3px 9px;border-radius:7px}
+  .b-card h3 .bh{flex:1}
+  .b-card h3 .sub{font-family:'Inter';display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right;white-space:nowrap}
+  .b-card h3 .sub .pp{font-size:.86rem;font-weight:700;background:rgba(255,255,255,.2);padding:3px 9px;border-radius:7px}
+  .b-card h3 .sub .pp i{font-style:normal;font-weight:500;opacity:.85;font-size:.72rem}
+  .b-card h3 .sub .grp{font-size:.66rem;opacity:.82;font-weight:500}
   .b-row{display:flex;justify-content:space-between;gap:12px;padding:11px 18px;border-bottom:1px solid var(--line);font-size:.9rem}
   .b-row:last-child{border-bottom:none}
   .b-row .lbl{color:var(--ink)}
@@ -922,26 +926,26 @@ document.querySelectorAll(".filters button").forEach(btn=>{
 
 // BUDGET
 const budget = [
- {h:"✈️ Flights",sub:"$7,680–$12,000",rows:[
+ {h:"✈️ Flights",sub:"$7,680–$12,000",pp:"$960–$1,500",rows:[
    {l:"Round-trip flights (CA & OH → Florence/Rome)",s:"Economy, book 9–12 months ahead · ~$900–$1,400 per person",a:"$7,200–$11,200"},
    {l:"Checked bags",s:"1 per adult, shared for kids · ~$60–$100 per person",a:"$480–$800"}]},
- {h:"🏠 Accommodations",sub:"$3,400–$6,000",rows:[
+ {h:"🏠 Accommodations",sub:"$3,400–$6,000",pp:"$425–$750",rows:[
    {l:"Florence apartment, 7 nights",s:"4–5BR downtown near Duomo or Oltrarno, sleeps 8+",a:"$2,200–$3,800"},
    {l:"Rome hotel, 4 nights",s:"Family-friendly, Trastevere, multiple rooms",a:"$1,200–$2,200"}]},
- {h:"🚗 Ground Transport",sub:"$1,712–$2,976",rows:[
+ {h:"🚗 Ground Transport",sub:"$1,712–$2,976",pp:"$214–$372",rows:[
    {l:"Private driver · Chianti day trip",s:"Car seats included, full day",a:"$440–$660"},
    {l:"Private driver · Siena & San Gimignano",s:"Car seats included, full day",a:"$440–$660"},
    {l:"Florence → Rome by train",s:"Trenitalia Frecciarossa, ~1.5 hrs",a:"$312–$616"},
    {l:"Taxis & local transport",s:"Rome & Florence",a:"$320–$640"},
    {l:"Airport transfers",s:"Arrivals & departures",a:"$200–$400"}]},
- {h:"🍝 Food & Drink",sub:"$7,480–$12,408",rows:[
+ {h:"🍝 Food & Drink",sub:"$7,480–$12,408",pp:"$935–$1,550",rows:[
    {l:"Breakfasts",s:"Pastries, coffee, bakeries",a:"$528–$880"},
    {l:"Lunches",s:"Trattorias, markets, sandwiches",a:"$1,496–$2,464"},
    {l:"Dinners",s:"Katie Parla picks, local trattorias",a:"$3,872–$5,808"},
    {l:"Special dinner",s:"Florence night out",a:"$616–$1,584"},
    {l:"Wine tastings",s:"Chianti, Siena route, bottles home",a:"$440–$704"},
    {l:"Gelato, coffee, snacks, kids' treats",s:"",a:"$528–$968"}]},
- {h:"🎨 Activities & Admissions",sub:"~$1,384–$1,468",rows:[
+ {h:"🎨 Activities & Admissions",sub:"~$1,384–$1,468",pp:"~$173–$184",rows:[
    {l:"Uffizi Gallery",s:"€26 / ~$29 · advance booking essential",a:"~$232"},
    {l:"Accademia (David)",s:"€16 / ~$18",a:"~$144"},
    {l:"Galleria Borghese",s:"€15 / ~$17 · book months ahead",a:"~$136"},
@@ -952,16 +956,16 @@ const budget = [
    {l:"Boboli Gardens",s:"€10 / ~$11",a:"~$88"},
    {l:"Museo della Forma Urbis",s:"€11 / ~$12",a:"~$96"},
    {l:"Villa Torlonia (Vatican alt.)",s:"€17 / ~$19 all-access",a:"~$76"}]},
- {h:"📦 Misc & Buffer",sub:"$3,640–$7,600",rows:[
+ {h:"📦 Misc & Buffer",sub:"$3,640–$7,600",pp:"$455–$950",rows:[
    {l:"Travel insurance",s:"Recommended for the whole group",a:"$640–$1,200"},
    {l:"Shopping, souvenirs, incidentals",s:"",a:"$800–$2,400"},
    {l:"10% contingency buffer",s:"",a:"$2,200–$4,000"}]},
- {h:"🍳 Optional Experiences",sub:"~$680–$1,240",rows:[
+ {h:"🍳 Optional Experiences",sub:"~$680–$1,240",pp:"~$85–$155",rows:[
    {l:"Cooking class in Florence",s:"Private group of 8 · Mama Florence or In Tavola · ~$85–$155/pp",a:"~$680–$1,240"}]}
 ];
 document.getElementById("budget-grid").innerHTML = budget.map(c=>`
   <div class="b-card">
-    <h3>${c.h}<span class="sub">${c.sub}</span></h3>
+    <h3><span class="bh">${c.h}</span><span class="sub"><span class="pp">${c.pp}<i>/person</i></span><span class="grp">${c.sub} total</span></span></h3>
     ${c.rows.map(r=>`<div class="b-row"><div class="lbl">${r.l}${r.s?`<small>${r.s}</small>`:""}</div><div class="amt">${r.a}</div></div>`).join("")}
   </div>`).join("");
 
